@@ -5,6 +5,8 @@ namespace mhf_displayer
 		public Form1()
 		{
 			InitializeComponent();
+
+			string str = "aaa";
 		}
 	}
 }

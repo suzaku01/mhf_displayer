@@ -5,7 +5,7 @@ Currently, only High Grade Edition is supported.
 # Download
 Go release section and download latest version.
 
-# How to run
+# Usage
 After game has started, run `mhf_displayer.exe`.  
 Windows Defender may try to scan app only once at the beginning of launch.  
 This is because mhf_displayer accesses game memory.

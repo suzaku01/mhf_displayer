@@ -1,4 +1,4 @@
-mhf_displayer is a C# form that shows hit point of large monster on display.  
+mhf_displayer is a C# form that shows hit points of large monster on display.  
 This project is WIP, and has some issues.  
 Currently, only High Grade Edition is supported.
 

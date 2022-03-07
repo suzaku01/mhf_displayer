@@ -2,7 +2,7 @@ mhf_displayer is a C# form that shows hit points of large monster on display.
 This project is WIP, and has some issues.  
 Currently, only High Grade Edition is supported.
 
-D3D has an overlay function, if you have enough knowledge you can do similar things with that.
+D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.
 
 # Download
 Go release section and download latest version.

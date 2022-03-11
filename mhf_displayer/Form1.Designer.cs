@@ -31,7 +31,16 @@
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelHPValue = new System.Windows.Forms.Label();
+            this.labelMonName = new System.Windows.Forms.Label();
+            this.labelAtkTitle = new System.Windows.Forms.Label();
+            this.AtkDefTitle = new System.Windows.Forms.Label();
+            this.labelHitCountTitle = new System.Windows.Forms.Label();
+            this.labelAtkValue = new System.Windows.Forms.Label();
+            this.labelDefValue = new System.Windows.Forms.Label();
+            this.labelHitCountsValue = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -40,7 +49,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(91, 15);
+            this.button1.Location = new System.Drawing.Point(305, 7);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(23, 23);
             this.button1.TabIndex = 0;
@@ -48,17 +57,118 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label1
+            // labelHPValue
             // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.Lime;
-            this.label1.Location = new System.Drawing.Point(12, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 34);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "30000";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelHPValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelHPValue.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelHPValue.ForeColor = System.Drawing.Color.Lime;
+            this.labelHPValue.Location = new System.Drawing.Point(225, 0);
+            this.labelHPValue.Name = "labelHPValue";
+            this.labelHPValue.Size = new System.Drawing.Size(74, 34);
+            this.labelHPValue.TabIndex = 1;
+            this.labelHPValue.Text = "30000";
+            this.labelHPValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelMonName
+            // 
+            this.labelMonName.BackColor = System.Drawing.Color.Transparent;
+            this.labelMonName.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelMonName.ForeColor = System.Drawing.Color.Lime;
+            this.labelMonName.Location = new System.Drawing.Point(0, 0);
+            this.labelMonName.Name = "labelMonName";
+            this.labelMonName.Size = new System.Drawing.Size(219, 34);
+            this.labelMonName.TabIndex = 2;
+            this.labelMonName.Text = "Lavasioth Subspecies:";
+            this.labelMonName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelAtkTitle
+            // 
+            this.labelAtkTitle.BackColor = System.Drawing.Color.Transparent;
+            this.labelAtkTitle.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelAtkTitle.ForeColor = System.Drawing.Color.Lime;
+            this.labelAtkTitle.Location = new System.Drawing.Point(0, 34);
+            this.labelAtkTitle.Name = "labelAtkTitle";
+            this.labelAtkTitle.Size = new System.Drawing.Size(186, 34);
+            this.labelAtkTitle.TabIndex = 3;
+            this.labelAtkTitle.Text = "Atk:";
+            this.labelAtkTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AtkDefTitle
+            // 
+            this.AtkDefTitle.BackColor = System.Drawing.Color.Transparent;
+            this.AtkDefTitle.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.AtkDefTitle.ForeColor = System.Drawing.Color.Lime;
+            this.AtkDefTitle.Location = new System.Drawing.Point(0, 68);
+            this.AtkDefTitle.Name = "AtkDefTitle";
+            this.AtkDefTitle.Size = new System.Drawing.Size(186, 34);
+            this.AtkDefTitle.TabIndex = 4;
+            this.AtkDefTitle.Text = "Def:";
+            this.AtkDefTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelHitCountTitle
+            // 
+            this.labelHitCountTitle.BackColor = System.Drawing.Color.Transparent;
+            this.labelHitCountTitle.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelHitCountTitle.ForeColor = System.Drawing.Color.Lime;
+            this.labelHitCountTitle.Location = new System.Drawing.Point(0, 102);
+            this.labelHitCountTitle.Name = "labelHitCountTitle";
+            this.labelHitCountTitle.Size = new System.Drawing.Size(186, 34);
+            this.labelHitCountTitle.TabIndex = 5;
+            this.labelHitCountTitle.Text = "Hit Counts:";
+            this.labelHitCountTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelAtkValue
+            // 
+            this.labelAtkValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelAtkValue.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelAtkValue.ForeColor = System.Drawing.Color.Lime;
+            this.labelAtkValue.Location = new System.Drawing.Point(225, 34);
+            this.labelAtkValue.Name = "labelAtkValue";
+            this.labelAtkValue.Size = new System.Drawing.Size(74, 34);
+            this.labelAtkValue.TabIndex = 6;
+            this.labelAtkValue.Text = "30000";
+            this.labelAtkValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelDefValue
+            // 
+            this.labelDefValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelDefValue.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelDefValue.ForeColor = System.Drawing.Color.Lime;
+            this.labelDefValue.Location = new System.Drawing.Point(225, 68);
+            this.labelDefValue.Name = "labelDefValue";
+            this.labelDefValue.Size = new System.Drawing.Size(74, 34);
+            this.labelDefValue.TabIndex = 7;
+            this.labelDefValue.Text = "30000";
+            this.labelDefValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelHitCountsValue
+            // 
+            this.labelHitCountsValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelHitCountsValue.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelHitCountsValue.ForeColor = System.Drawing.Color.Lime;
+            this.labelHitCountsValue.Location = new System.Drawing.Point(225, 102);
+            this.labelHitCountsValue.Name = "labelHitCountsValue";
+            this.labelHitCountsValue.Size = new System.Drawing.Size(74, 34);
+            this.labelHitCountsValue.TabIndex = 8;
+            this.labelHitCountsValue.Text = "30000";
+            this.labelHitCountsValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel1.Controls.Add(this.labelMonName);
+            this.panel1.Controls.Add(this.labelHitCountsValue);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.labelDefValue);
+            this.panel1.Controls.Add(this.labelHPValue);
+            this.panel1.Controls.Add(this.labelAtkValue);
+            this.panel1.Controls.Add(this.labelAtkTitle);
+            this.panel1.Controls.Add(this.labelHitCountTitle);
+            this.panel1.Controls.Add(this.AtkDefTitle);
+            this.panel1.Location = new System.Drawing.Point(12, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(328, 146);
+            this.panel1.TabIndex = 9;
             // 
             // Form1
             // 
@@ -66,14 +176,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.ControlBox = false;
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.Text = "Form1";
             this.TopMost = true;
             this.TransparencyKey = System.Drawing.Color.LimeGreen;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
 		}
@@ -82,6 +192,14 @@
 
         private System.Windows.Forms.Timer timer1;
         private Button button1;
-        private Label label1;
+        private Label labelHPValue;
+        private Label labelMonName;
+        private Label labelAtkTitle;
+        private Label AtkDefTitle;
+        private Label labelHitCountTitle;
+        private Label labelAtkValue;
+        private Label labelDefValue;
+        private Label labelHitCountsValue;
+        private Panel panel1;
     }
 }

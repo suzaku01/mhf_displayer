@@ -1,8 +1,7 @@
 using Memory;
-using System.Configuration;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
+using Dictionary;
 using System.Linq;
+using System.Text;
 
 namespace mhf_displayer
 {
@@ -19,12 +18,53 @@ namespace mhf_displayer
         UIntPtr adr4;
         bool alreadyExist = false;
         int monsterHPValue;
+        string cfgFileName = "mhf_displayer.cfg";
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.TopMost = true;
 			this.BackColor = Color.LimeGreen;
-            this.Location = new Point(265, 90);
+            panel1.BackColor = Color.LimeGreen;
+
+            string cfgPos = File.ReadLines(cfgFileName).ElementAt(5);
+            string cfgPos1 = "position=";
+            string cfgPos2 = cfgPos.Substring(cfgPos.IndexOf(cfgPos1) + cfgPos1.Length);
+
+            switch(cfgPos2)
+            {
+                case "1":
+                    {
+                        this.Location = new Point(265, 90);
+                        break;
+                    }
+                case "2":
+                    {
+                        this.Location = new Point(10, 240);
+                        break;
+                    }
+                case "3":
+                    {
+                        this.Location = new Point(1550, 700);
+                        break;
+                    }
+                case "4":
+                    {
+                        string posX = File.ReadLines(cfgFileName).ElementAt(7);
+                        string posX1 = "x=";
+                        int posX2 = Convert.ToInt16(posX.Substring(posX.IndexOf(posX1) + posX1.Length));
+                        string posY = File.ReadLines(cfgFileName).ElementAt(8);
+                        string posY1 = "y=";
+                        int posY2 = Convert.ToInt16(posY.Substring(posY.IndexOf(posY1) + posY1.Length));
+                        this.Location = new Point(posX2, posY2);
+                        break;
+                    }
+                    default:
+                    {
+                        MessageBox.Show("Could not load config file.");
+                        this.Close();
+                        break;
+                    }
+            }
 
             int PID = m.GetProcIdFromName("mhf");
 			if (PID > 0)
@@ -49,37 +89,56 @@ namespace mhf_displayer
                     Array.Reverse(data, 0, data.Length);
                     UIntPtr adr5 = adr3 + 6;
                     m.WriteBytes(adr5, data);
-
-                    timer1.Start();
                 }
                 else
                 {
+                    //prevent from creating another codecave
                     alreadyExist = true;
                     adrf = adrf + 20;
-                    timer1.Start();
                 }
+
+                timer1.Start();
+
             }
             else
             {
 				MessageBox.Show("Launch game first");
                 this.Close();
-
             }
 
 		}
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            //HP
             if (alreadyExist)
             {
                 monsterHPValue = m.Read2Byte(adrf.ToString("X8"));
-                label1.Text = monsterHPValue.ToString();
             }
             else
             {
                 monsterHPValue = m.Read2Byte(adr4.ToString("X8"));
-                label1.Text = monsterHPValue.ToString();
             }
+            labelHPValue.Text = monsterHPValue.ToString();
+
+            //Atk and Def
+            float atk = m.ReadFloat("mhfo-hd.dll+0E37DD38,898");
+            float def = m.ReadFloat("mhfo-hd.dll+0E37DD38,89C");
+            labelAtkValue.Text = atk.ToString();
+            labelDefValue.Text = def.ToString();
+
+            //Moster name
+            int monsterID = m.ReadByte("mhfo-hd.dll+0E37DD38,3");
+            List.MonsterID.TryGetValue(monsterID, out string monsterName);
+            if (atk == 0)
+            {
+                monsterName = "None";
+            }
+            labelMonName.Text = monsterName + ":";
+
+            //HitCounts
+            int hitCounts = m.Read2Byte("mhfo-hd.dll+ECB2DC6");
+            labelHitCountsValue.Text = hitCounts.ToString();
 
         }
 
@@ -87,5 +146,6 @@ namespace mhf_displayer
         {
 			this.Close();
 		}
+
     }
 }

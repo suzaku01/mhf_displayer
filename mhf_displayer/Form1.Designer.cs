@@ -30,7 +30,6 @@
 		{
             this.components = new System.ComponentModel.Container();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.labelHPValue = new System.Windows.Forms.Label();
             this.labelMonName = new System.Windows.Forms.Label();
             this.labelAtkTitle = new System.Windows.Forms.Label();
@@ -40,22 +39,13 @@
             this.labelDefValue = new System.Windows.Forms.Label();
             this.labelHitCountsValue = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(305, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(23, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "X";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // labelHPValue
             // 
@@ -64,9 +54,9 @@
             this.labelHPValue.ForeColor = System.Drawing.Color.Lime;
             this.labelHPValue.Location = new System.Drawing.Point(225, 0);
             this.labelHPValue.Name = "labelHPValue";
-            this.labelHPValue.Size = new System.Drawing.Size(74, 34);
+            this.labelHPValue.Size = new System.Drawing.Size(86, 34);
             this.labelHPValue.TabIndex = 1;
-            this.labelHPValue.Text = "30000";
+            this.labelHPValue.Text = "300000";
             this.labelHPValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelMonName
@@ -124,7 +114,7 @@
             this.labelAtkValue.ForeColor = System.Drawing.Color.Lime;
             this.labelAtkValue.Location = new System.Drawing.Point(225, 34);
             this.labelAtkValue.Name = "labelAtkValue";
-            this.labelAtkValue.Size = new System.Drawing.Size(74, 34);
+            this.labelAtkValue.Size = new System.Drawing.Size(86, 34);
             this.labelAtkValue.TabIndex = 6;
             this.labelAtkValue.Text = "30000";
             this.labelAtkValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -136,7 +126,7 @@
             this.labelDefValue.ForeColor = System.Drawing.Color.Lime;
             this.labelDefValue.Location = new System.Drawing.Point(225, 68);
             this.labelDefValue.Name = "labelDefValue";
-            this.labelDefValue.Size = new System.Drawing.Size(74, 34);
+            this.labelDefValue.Size = new System.Drawing.Size(86, 34);
             this.labelDefValue.TabIndex = 7;
             this.labelDefValue.Text = "30000";
             this.labelDefValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -148,7 +138,7 @@
             this.labelHitCountsValue.ForeColor = System.Drawing.Color.Lime;
             this.labelHitCountsValue.Location = new System.Drawing.Point(225, 102);
             this.labelHitCountsValue.Name = "labelHitCountsValue";
-            this.labelHitCountsValue.Size = new System.Drawing.Size(74, 34);
+            this.labelHitCountsValue.Size = new System.Drawing.Size(86, 34);
             this.labelHitCountsValue.TabIndex = 8;
             this.labelHitCountsValue.Text = "30000";
             this.labelHitCountsValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -156,9 +146,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.labelMonName);
             this.panel1.Controls.Add(this.labelHitCountsValue);
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.labelDefValue);
             this.panel1.Controls.Add(this.labelHPValue);
             this.panel1.Controls.Add(this.labelAtkValue);
@@ -167,8 +157,18 @@
             this.panel1.Controls.Add(this.AtkDefTitle);
             this.panel1.Location = new System.Drawing.Point(12, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(328, 146);
+            this.panel1.Size = new System.Drawing.Size(396, 146);
             this.panel1.TabIndex = 9;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(317, 7);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(28, 24);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "X";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
@@ -191,7 +191,6 @@
         #endregion
 
         private System.Windows.Forms.Timer timer1;
-        private Button button1;
         private Label labelHPValue;
         private Label labelMonName;
         private Label labelAtkTitle;
@@ -201,5 +200,6 @@
         private Label labelDefValue;
         private Label labelHitCountsValue;
         private Panel panel1;
+        private Button button1;
     }
 }

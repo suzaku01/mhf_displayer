@@ -43,3 +43,6 @@ Added config file to root folder(for those who want to build themselves).
 ## v1.2
 Added remaining time.  
 Added time display option to config file.  
+
+## v1.2.1
+Now remaining or elapsed time can be selected through config fiile.  

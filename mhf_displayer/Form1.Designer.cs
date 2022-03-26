@@ -39,9 +39,9 @@
             this.labelDefValue = new System.Windows.Forms.Label();
             this.labelHitCountsValue = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelTimeValue1 = new System.Windows.Forms.Label();
+            this.labelTime1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.labelTime = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,8 +148,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel1.Controls.Add(this.labelTime);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.labelTimeValue1);
+            this.panel1.Controls.Add(this.labelTime1);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.labelMonName);
             this.panel1.Controls.Add(this.labelHitCountsValue);
@@ -164,6 +164,30 @@
             this.panel1.Size = new System.Drawing.Size(396, 278);
             this.panel1.TabIndex = 9;
             // 
+            // labelTimeValue1
+            // 
+            this.labelTimeValue1.BackColor = System.Drawing.Color.Transparent;
+            this.labelTimeValue1.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelTimeValue1.ForeColor = System.Drawing.Color.Lime;
+            this.labelTimeValue1.Location = new System.Drawing.Point(225, 136);
+            this.labelTimeValue1.Name = "labelTimeValue1";
+            this.labelTimeValue1.Size = new System.Drawing.Size(168, 34);
+            this.labelTimeValue1.TabIndex = 11;
+            this.labelTimeValue1.Text = "30000";
+            this.labelTimeValue1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelTime1
+            // 
+            this.labelTime1.BackColor = System.Drawing.Color.Transparent;
+            this.labelTime1.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelTime1.ForeColor = System.Drawing.Color.Lime;
+            this.labelTime1.Location = new System.Drawing.Point(0, 136);
+            this.labelTime1.Name = "labelTime1";
+            this.labelTime1.Size = new System.Drawing.Size(186, 34);
+            this.labelTime1.TabIndex = 10;
+            this.labelTime1.Text = "Remaining Time:";
+            this.labelTime1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(317, 7);
@@ -173,30 +197,6 @@
             this.button1.Text = "X";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.Lime;
-            this.label1.Location = new System.Drawing.Point(0, 136);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(186, 34);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Remaining Time:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labelTime
-            // 
-            this.labelTime.BackColor = System.Drawing.Color.Transparent;
-            this.labelTime.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.labelTime.ForeColor = System.Drawing.Color.Lime;
-            this.labelTime.Location = new System.Drawing.Point(225, 136);
-            this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(168, 34);
-            this.labelTime.TabIndex = 11;
-            this.labelTime.Text = "30000";
-            this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Form1
             // 
@@ -229,7 +229,7 @@
         private Label labelHitCountsValue;
         private Panel panel1;
         private Button button1;
-        private Label labelTime;
-        private Label label1;
+        private Label labelTimeValue1;
+        private Label labelTime1;
     }
 }

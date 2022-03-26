@@ -19,7 +19,8 @@ namespace mhf_displayer
         bool alreadyExist = false;
         int monsterHPValue;
         string cfgFileName = "mhf_displayer.cfg";
-        int timeDis2;
+        int timeType2;
+        int timeFormat2;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -67,9 +68,13 @@ namespace mhf_displayer
                     }
             }
 
-            string timeDis = File.ReadLines(cfgFileName).ElementAt(10);
-            string timeDis1 = "time=";
-            timeDis2 = Convert.ToInt16(timeDis.Substring(timeDis.IndexOf(timeDis1) + timeDis1.Length));
+            string timeType = File.ReadLines(cfgFileName).ElementAt(12);
+            string timeType1 = "type=";
+            timeType2 = Convert.ToInt16(timeType.Substring(timeType.IndexOf(timeType1) + timeType1.Length));
+
+            string timeFormat = File.ReadLines(cfgFileName).ElementAt(14);
+            string timeFormat1 = "format=";
+            timeFormat2 = Convert.ToInt16(timeFormat.Substring(timeFormat.IndexOf(timeFormat1) + timeFormat1.Length));
 
             int PID = m.GetProcIdFromName("mhf");
 			if (PID > 0)
@@ -146,22 +151,51 @@ namespace mhf_displayer
             labelHitCountsValue.Text = hitCounts.ToString();
 
             //Time
+            int timeDef = m.ReadInt("mhfo-hd.dll+2AFA820");
             int time = m.ReadInt("mhfo-hd.dll+E7FE170");
-            switch (timeDis2)
+            switch (timeType2)
             {
                 case 1:
-                    int seconds = (time / 30) % 60;
-                    int minutes = (time / 30) / 60;
-                    string time1 = minutes + ":" + seconds;
-                    labelTime.Text = time1;
+                    labelTime1.Text = "Remaining Time:";
+                    switch (timeFormat2)
+                    {
+                        case 1:
+                            int seconds = (time / 30) % 60;
+                            int minutes = (time / 30) / 60;
+                            string time1 = minutes + ":" + seconds;
+                            labelTimeValue1.Text = time1;
+                            break;
+
+                        case 2:
+                            labelTimeValue1.Text = (time / 30).ToString();
+                            break;
+
+                        case 3:
+                            labelTimeValue1.Text = time.ToString();
+                            break;
+                    }
                     break;
 
                 case 2:
-                    labelTime.Text = (time / 30).ToString();
-                    break;
+                    labelTime1.Text = "Elapsed Time";
+                    switch (timeFormat2)
+                    {
+                        case 1:
+                            int timeEla = timeDef - time;
+                            int seconds1 = (timeEla / 30) % 60;
+                            int minutes1 = (timeEla / 30) / 60;
+                            string time2 = minutes1 + ":" + seconds1;
+                            labelTimeValue1.Text = time2;
+                            break;
 
-                case 3:
-                    labelTime.Text = time.ToString();
+                        case 2:
+                            labelTimeValue1.Text = ((timeDef - time) / 30).ToString();
+                            break;
+
+                        case 3:
+                            labelTimeValue1.Text = (timeDef - time).ToString();
+                            break;
+                    }
                     break;
             }
 

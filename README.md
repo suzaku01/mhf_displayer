@@ -9,6 +9,9 @@ D3D has an overlay function, if you have enough knowledge you can do similar thi
 # Download
 Go release section and download latest version.
 
+# Build
+If you feel you want to build the project youeself, place `mhf_displayer.cfg` to same place where exe created after your build finish.
+
 # Usage
 After game has started, run `mhf_displayer.exe`.  
 Windows Defender may try to scan app only once at the beginning of launch.  
@@ -32,3 +35,7 @@ Added monster name.
 Added monster attack multiplier.  
 Added monster defence multiplier.  
 Added Hit counts.
+
+## v1.1.1
+Changed size of HP label.  
+Added config file to root folder(for those who want to build themselves).

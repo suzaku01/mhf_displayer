@@ -39,3 +39,7 @@ Added Hit counts.
 ## v1.1.1
 Changed size of HP label.  
 Added config file to root folder(for those who want to build themselves).
+
+## v1.2
+Added remaining time.  
+Added time display option to config file.  

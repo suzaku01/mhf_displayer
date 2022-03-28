@@ -46,3 +46,6 @@ Added time display option to config file.
 
 ## v1.2.1
 Now remaining or elapsed time can be selected through config fiile.  
+
+## v1.3
+Added the ability to display damage dealt by player(experimental). You can disable this function via config file.

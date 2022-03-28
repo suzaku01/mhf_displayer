@@ -1,7 +1,6 @@
 using Memory;
 using Dictionary;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 
 namespace mhf_displayer
 {
@@ -21,11 +20,17 @@ namespace mhf_displayer
         string cfgFileName = "mhf_displayer.cfg";
         int timeType2;
         int timeFormat2;
+        string moduleName;
+        int curNum = 0;
+        int prevNum = 0;
+        bool isFirstAttack = false;
+        int showDamage;
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.TopMost = true;
 			this.BackColor = Color.LimeGreen;
+            this.Location = new Point(0, 0);
             panel1.BackColor = Color.LimeGreen;
 
             string cfgPos = File.ReadLines(cfgFileName).ElementAt(5);
@@ -36,17 +41,17 @@ namespace mhf_displayer
             {
                 case "1":
                     {
-                        this.Location = new Point(265, 90);
+                        panel1.Location = new Point(265, 90);
                         break;
                     }
                 case "2":
                     {
-                        this.Location = new Point(10, 240);
+                        panel1.Location = new Point(10, 240);
                         break;
                     }
                 case "3":
                     {
-                        this.Location = new Point(1550, 700);
+                        panel1.Location = new Point(1550, 700);
                         break;
                     }
                 case "4":
@@ -57,7 +62,7 @@ namespace mhf_displayer
                         string posY = File.ReadLines(cfgFileName).ElementAt(8);
                         string posY1 = "y=";
                         int posY2 = Convert.ToInt16(posY.Substring(posY.IndexOf(posY1) + posY1.Length));
-                        this.Location = new Point(posX2, posY2);
+                        panel1.Location = new Point(posX2, posY2);
                         break;
                     }
                     default:
@@ -75,6 +80,12 @@ namespace mhf_displayer
             string timeFormat = File.ReadLines(cfgFileName).ElementAt(14);
             string timeFormat1 = "format=";
             timeFormat2 = Convert.ToInt16(timeFormat.Substring(timeFormat.IndexOf(timeFormat1) + timeFormat1.Length));
+
+            string isShowDamage = File.ReadLines(cfgFileName).ElementAt(18);
+            string isShowDamage1 = "show=";
+            int showDamage = Convert.ToInt16(isShowDamage.Substring(isShowDamage.IndexOf(isShowDamage1) + isShowDamage1.Length));
+
+
 
             int PID = m.GetProcIdFromName("mhf");
 			if (PID > 0)
@@ -109,6 +120,23 @@ namespace mhf_displayer
 
                 timer1.Start();
 
+                Process proc = Process.GetProcessById(PID);
+                var list = new List<string>();
+                foreach (ProcessModule md in proc.Modules)
+                {
+                    list.Add(md.ModuleName);
+                }
+
+                if (list.Contains("mhfo.dll"))
+                {
+                    moduleName = "mhfo.dll";
+                }
+                else
+                {
+                    moduleName = "mhfo-hd.dll";
+                }
+
+
             }
             else
             {
@@ -117,6 +145,35 @@ namespace mhf_displayer
             }
 
 		}
+
+        void FadeOut(Label label)
+        {
+            var t = new System.Windows.Forms.Timer();
+            t.Interval = 2000; // it will Tick in 3 seconds
+            t.Tick += (s, e) =>
+            {
+                label.Hide();
+                t.Stop();
+            };
+            t.Start();
+        }
+
+        void CreateLabel(int damage)
+        {
+            Label namelabel = new Label();
+            Random rnd = new Random();
+            int x = rnd.Next(960 - 250, 960 + 250);
+            int y = rnd.Next(540 - 150, 540 + 50);
+            namelabel.Location = new Point(x, y);
+            namelabel.BringToFront();
+            namelabel.Text = damage.ToString();
+            namelabel.Font = new Font("Comic Sans MS", 17);
+            namelabel.ForeColor = Color.Lime;
+            namelabel.BackColor = Color.Transparent;
+            namelabel.AutoSize = true;
+            this.Controls.Add(namelabel);
+            FadeOut(namelabel);
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -147,8 +204,9 @@ namespace mhf_displayer
             labelMonName.Text = monsterName + ":";
 
             //HitCounts
-            float hitCounts = m.ReadFloat("mhfo-hd.dll+ECB2DC6");
+            int hitCounts = m.Read2Byte("mhfo-hd.dll+ECB2DC6");
             labelHitCountsValue.Text = hitCounts.ToString();
+
 
             //Time
             int timeDef = m.ReadInt("mhfo-hd.dll+2AFA820");
@@ -199,6 +257,45 @@ namespace mhf_displayer
                     break;
             }
 
+
+            //Damage
+            if (showDamage == 1)
+            {
+                int damage = 0;
+                if (hitCounts == 0)
+                {
+                    curNum = 0;
+                    prevNum = 0;
+                    isFirstAttack = true;
+                }
+                else
+                {
+                    damage = m.Read2Byte("mhfo-hd.dll+E8DCF18");
+                }
+
+                if (prevNum != damage)
+                {
+                    curNum = damage - prevNum;
+                    if (isFirstAttack)
+                    {
+                        isFirstAttack = false;
+                        CreateLabel(damage);
+                    }
+                    else if (curNum < 0)
+                    {
+                        curNum = 1000 + curNum;
+                        CreateLabel(curNum);
+                    }
+                    else
+                    {
+                        if (curNum != damage)
+                        {
+                            CreateLabel(curNum);
+                        }
+                    }
+                }
+                prevNum = damage;
+            }
 
         }
 

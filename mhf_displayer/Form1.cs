@@ -25,71 +25,14 @@ namespace mhf_displayer
         int prevNum = 0;
         bool isFirstAttack = false;
         int showDamage;
+        int playerAtkConfig2;
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.TopMost = true;
-			this.BackColor = Color.LimeGreen;
-            this.Location = new Point(0, 0);
-            panel1.BackColor = Color.LimeGreen;
-
-            string cfgPos = File.ReadLines(cfgFileName).ElementAt(5);
-            string cfgPos1 = "position=";
-            string cfgPos2 = cfgPos.Substring(cfgPos.IndexOf(cfgPos1) + cfgPos1.Length);
-
-            switch(cfgPos2)
-            {
-                case "1":
-                    {
-                        panel1.Location = new Point(265, 90);
-                        break;
-                    }
-                case "2":
-                    {
-                        panel1.Location = new Point(10, 240);
-                        break;
-                    }
-                case "3":
-                    {
-                        panel1.Location = new Point(1550, 700);
-                        break;
-                    }
-                case "4":
-                    {
-                        string posX = File.ReadLines(cfgFileName).ElementAt(7);
-                        string posX1 = "x=";
-                        int posX2 = Convert.ToInt16(posX.Substring(posX.IndexOf(posX1) + posX1.Length));
-                        string posY = File.ReadLines(cfgFileName).ElementAt(8);
-                        string posY1 = "y=";
-                        int posY2 = Convert.ToInt16(posY.Substring(posY.IndexOf(posY1) + posY1.Length));
-                        panel1.Location = new Point(posX2, posY2);
-                        break;
-                    }
-                    default:
-                    {
-                        MessageBox.Show("Could not load config file.");
-                        this.Close();
-                        break;
-                    }
-            }
-
-            string timeType = File.ReadLines(cfgFileName).ElementAt(12);
-            string timeType1 = "type=";
-            timeType2 = Convert.ToInt16(timeType.Substring(timeType.IndexOf(timeType1) + timeType1.Length));
-
-            string timeFormat = File.ReadLines(cfgFileName).ElementAt(14);
-            string timeFormat1 = "format=";
-            timeFormat2 = Convert.ToInt16(timeFormat.Substring(timeFormat.IndexOf(timeFormat1) + timeFormat1.Length));
-
-            string isShowDamage = File.ReadLines(cfgFileName).ElementAt(18);
-            string isShowDamage1 = "show=";
-            int showDamage = Convert.ToInt16(isShowDamage.Substring(isShowDamage.IndexOf(isShowDamage1) + isShowDamage1.Length));
-
-
-
+            ManageConfig();
             int PID = m.GetProcIdFromName("mhf");
 			if (PID > 0)
-			{
+            {
 				m.OpenProcess(PID);
 
                 adrf = m.AoBScan("0F BF D1 31 D0 A3 ?? ?? ?? ?? E9 ?? ?? ?? ??").Result.FirstOrDefault();
@@ -145,6 +88,71 @@ namespace mhf_displayer
             }
 
 		}
+
+        void ManageConfig()
+        {
+            panel2.Visible = false;
+            this.TopMost = true;
+            this.BackColor = Color.LimeGreen;
+            this.Location = new Point(0, 0);
+            panel1.BackColor = Color.LimeGreen;
+
+            string cfgPos = File.ReadLines(cfgFileName).ElementAt(5);
+            string cfgPos1 = "position=";
+            string cfgPos2 = cfgPos.Substring(cfgPos.IndexOf(cfgPos1) + cfgPos1.Length);
+
+            switch (cfgPos2)
+            {
+                case "1":
+                    {
+                        panel1.Location = new Point(265, 90);
+                        break;
+                    }
+                case "2":
+                    {
+                        panel1.Location = new Point(10, 240);
+                        break;
+                    }
+                case "3":
+                    {
+                        panel1.Location = new Point(1550, 700);
+                        break;
+                    }
+                case "4":
+                    {
+                        string posX = File.ReadLines(cfgFileName).ElementAt(7);
+                        string posX1 = "x=";
+                        int posX2 = Convert.ToInt16(posX.Substring(posX.IndexOf(posX1) + posX1.Length));
+                        string posY = File.ReadLines(cfgFileName).ElementAt(8);
+                        string posY1 = "y=";
+                        int posY2 = Convert.ToInt16(posY.Substring(posY.IndexOf(posY1) + posY1.Length));
+                        panel1.Location = new Point(posX2, posY2);
+                        break;
+                    }
+                default:
+                    {
+                        MessageBox.Show("Could not load config file.");
+                        this.Close();
+                        break;
+                    }
+            }
+
+            string timeType = File.ReadLines(cfgFileName).ElementAt(12);
+            string timeType1 = "type=";
+            timeType2 = Convert.ToInt16(timeType.Substring(timeType.IndexOf(timeType1) + timeType1.Length));
+
+            string timeFormat = File.ReadLines(cfgFileName).ElementAt(14);
+            string timeFormat1 = "format=";
+            timeFormat2 = Convert.ToInt16(timeFormat.Substring(timeFormat.IndexOf(timeFormat1) + timeFormat1.Length));
+
+            string isShowDamage = File.ReadLines(cfgFileName).ElementAt(18);
+            string isShowDamage1 = "show=";
+            showDamage = Convert.ToInt16(isShowDamage.Substring(isShowDamage.IndexOf(isShowDamage1) + isShowDamage1.Length));
+
+            string playerAtkConfig = File.ReadLines(cfgFileName).ElementAt(22);
+            string playerAtkConfig1 = "type=";
+            playerAtkConfig2 = Convert.ToInt16(playerAtkConfig.Substring(playerAtkConfig.IndexOf(playerAtkConfig1) + playerAtkConfig1.Length));
+        }
 
         void FadeOut(Label label)
         {
@@ -297,11 +305,140 @@ namespace mhf_displayer
                 prevNum = damage;
             }
 
+            //PlayerAtk
+            int raw = m.Read2Byte("mhfo-hd.dll+DC6BEFA");
+            int wepType = m.ReadByte("mhfo-hd.dll+ED3A466");
+            float mul = 0f;
+            switch (wepType)
+            {
+                case 0:
+                case 1:
+                    mul = 1.4f;
+                    break;
+                case 2:
+                case 3:
+                    mul = 4.8f;
+                    break;
+                case 4:
+                case 5:
+                    mul = 5.2f;
+                    break;
+                case 6:
+                case 7:
+                    mul = 2.3f;
+                    break;
+                case 8:
+                case 9:
+                case 10:
+                    mul = 1.2f;
+                    break;
+                case 34:
+                case 36:
+                    mul = 5.4f;
+                    break;
+                case 35:
+                    mul = 1.8f;
+                    break;
+                default:
+                    mul = 0f;
+                    break;
+
+            }
+            if (playerAtkConfig2 == 1)
+            {
+                label21.Visible = true;
+                labelPlayerAtk.Visible = true;
+                labelPlayerAtk.Text = Math.Floor((raw * mul)).ToString();
+            }
+            else if (playerAtkConfig2 == 2)
+            {
+                label21.Visible = true;
+                labelPlayerAtk.Visible = true;
+                labelPlayerAtk.Text = raw.ToString();
+            }
+            else
+            {
+                label21.Visible = false;
+                labelPlayerAtk.Visible = false;
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        int panelx2 = 0;
+        int panely2 = 0;
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ManageConfig();
+            //panel2.Visible = true;
+
+            //string panelx = File.ReadLines(cfgFileName).ElementAt(21);
+            //string panelx1 = "x=";
+            //panelx2 = Convert.ToInt16(panelx.Substring(panelx.IndexOf(panelx1) + panelx1.Length));
+            //string panely = File.ReadLines(cfgFileName).ElementAt(22);
+            //string panely1 = "y=";
+            //panely2 = Convert.ToInt16(panely.Substring(panely.IndexOf(panely1) + panely1.Length));
+            //panel2.Location = new Point(panelx2, panely2);
+            //numericUpDown10.Value = panelx2;
+            //numericUpDown11.Value = panely2;
+
+
+        }
+
+        private void numericUpDown10_ValueChanged(object sender, EventArgs e)
+        {
+            panel2.Location = new Point(decimal.ToInt32(numericUpDown10.Value), panely2);
+        }
+
+        private void numericUpDown11_ValueChanged(object sender, EventArgs e)
+        {
+            panel2.Location = new Point(panelx2, decimal.ToInt32(numericUpDown11.Value));
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -53,3 +53,7 @@ Added the ability to display damage dealt by player(experimental). You can disab
 ## v1.3.1
 Added a label to show player attack value, only works in quest. You can select true or raw value via config file.  
 Added a relaod button to relaod UI.
+
+## v1.3.2
+Changed reload button text to R from C.  
+Added deleted image file.  

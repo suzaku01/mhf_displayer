@@ -6,9 +6,6 @@ Now display position is changeable. See `mhf_displayer.cfg`.
 
 D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.  
 
-Showing multiple large monster of hp and each status value is done, fixing a problem that strange numbers appearing for a moment is done too.  
-Time to do config menu.
-
 # Download
 Go release section and download latest version.
 

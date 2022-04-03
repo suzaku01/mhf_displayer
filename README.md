@@ -2,11 +2,12 @@ mhf_displayer is a C# form that shows hit points of large monster on display.
 This project is WIP, and has some issues.  
 Currently, only High Grade Edition is supported.
 
-If I have more time I want to implement more functions, write cool and useful UI, but It will take some time.  
-
 Now display position is changeable. See `mhf_displayer.cfg`.
 
-D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.
+D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.  
+
+Showing multiple large monster of hp and each status value is done, fixing a problem what strange numbers appearing for a moment is done too.  
+Time to do config menu.
 
 # Download
 Go release section and download latest version.

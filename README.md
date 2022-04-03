@@ -19,6 +19,7 @@ This is because mhf_displayer accesses game memory.
 
 # Known issues
 - When you go some specific quests, it shows strange value, for a moment.  
+- Cannot get True value of player attack correctly.  
 - If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 

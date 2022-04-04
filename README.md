@@ -4,7 +4,7 @@ Currently, only High Grade Edition is supported.
 
 Now display position is changeable. See `mhf_displayer.cfg`.
 
-D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.
+D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.  
 
 # Download
 Go release section and download latest version.
@@ -19,6 +19,7 @@ This is because mhf_displayer accesses game memory.
 
 # Known issues
 - When you go some specific quests, it shows strange value, for a moment.  
+- Cannot get True value of player attack correctly.  
 - If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 
@@ -53,3 +54,7 @@ Added the ability to display damage dealt by player(experimental). You can disab
 ## v1.3.1
 Added a label to show player attack value, only works in quest. You can select true or raw value via config file.  
 Added a relaod button to relaod UI.
+
+## v1.3.2
+Changed reload button text to R from C.  
+Added deleted image file.  

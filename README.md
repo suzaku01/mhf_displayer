@@ -18,7 +18,7 @@ Windows Defender may try to scan app only once at the beginning of launch.
 This is because mhf_displayer accesses game memory.  
 
 Press `X` button to shutdown the app.  
-Press `C` button to opne configuration menu.
+Press `C` button to open configuration menu.
 
 `mhf_displayer.cfg` file is used to store your config value.  
 

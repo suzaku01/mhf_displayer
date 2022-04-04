@@ -1,24 +1,28 @@
-mhf_displayer is a C# form that shows hit points of large monster on display.  
+# Description
+mhf_displayer is a C# form that shows various useful infomations on display.  
 This project is WIP, and has some issues.  
-Currently, only High Grade Edition is supported.
+Currently, only High Grade Edition and fullscreen are supported.   
 
-Now display position is changeable. See `mhf_displayer.cfg`.
-
+## Notes
 D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.  
 
 # Download
 Go release section and download latest version.
 
 # Build
-If you feel you want to build the project youeself, place `mhf_displayer.cfg` to same place where exe created after your build finish.
+If you feel you want to build the project youeself, place `mhf_displayer.cfg` to the same place where exe created.
 
 # Usage
 After game has started, run `mhf_displayer.exe`.  
 Windows Defender may try to scan app only once at the beginning of launch.  
-This is because mhf_displayer accesses game memory.
+This is because mhf_displayer accesses game memory.  
+
+Press `X` button to shutdown the app.  
+Press `C` button to opne configuration menu.
+
+`mhf_displayer.cfg` file is used to store your config value.  
 
 # Known issues
-- When you go some specific quests, it shows strange value, for a moment.  
 - Cannot get True value of player attack correctly.  
 - If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
@@ -58,3 +62,12 @@ Added a relaod button to relaod UI.
 ## v1.3.2
 Changed reload button text to R from C.  
 Added deleted image file.  
+
+## v1.4
+Added `C` button for configuration menu.  
+Added configuration menu. Press `C` buttton to access.  
+All previous displays are divided into 3 panels. You can configure them separately.  
+Fixed a problem where strange HP values were displayed for a moment.  
+Changed to be able to display HP of multiple large monster at same time, up to 4.   
+Added a panel that shows various values of large monster such as poison, sleep. Currently only works for 1st monster.  
+

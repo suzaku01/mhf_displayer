@@ -18,6 +18,7 @@ namespace mhf_displayer
         int prevNum = 0;
         bool isFirstAttack = false;
         int hitCounts = 0;
+        bool isHGE = false;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -32,6 +33,8 @@ namespace mhf_displayer
             panelHP.Location = new Point(0, 0);
             panelMonsInfo.Location = new Point(0, 0);
             panelSample.Visible = false;
+            string dllName  = "";
+
 
             LoadConfig();
             int PID = m.GetProcIdFromName("mhf");
@@ -41,20 +44,6 @@ namespace mhf_displayer
                 long searchAddress = m.AoBScan("89 04 8D 00 C6 43 00 61 E9").Result.FirstOrDefault();
                 if (searchAddress.ToString("X8") == "00000000")
                 {
-                    //long adr1 = m.AoBScan("0F B7 8a 24 06 00 00 0f b7 ?? ?? ?? c1 c1 e1 0b").Result.FirstOrDefault();
-                    //adr1 = adr1 + 58;
-                    //long adr2 = adr1 + 5;
-
-                    //UIntPtr adr3 = m.CreateCodeCave(adr1.ToString("X8"), new byte[] { 0x0F, 0xBF, 0xD1, 0x31, 0xD0, 0xA3, 0x2A, 0x00, 0x80, 0x00 }, 5, 0x100);
-                    //m.WriteMemory(adr2.ToString("X8"), "bytes", "C3");      //write ret
-
-                    //adr4 = adr3 + 20;       //stored hp location
-                    //string str = adr4.ToString("X8");
-                    //byte[] data = Enumerable.Range(0, str.Length).Where(x => x % 2 == 0).Select(x => Convert.ToByte(str.Substring(x, 2), 16)).ToArray();
-                    //Array.Reverse(data, 0, data.Length);
-                    //UIntPtr adr5 = adr3 + 6;
-                    //m.WriteBytes(adr5, data);
-
                     //Create codecave and get its address
                     long baseScanAddress = m.AoBScan("0F B7 8a 24 06 00 00 0f b7 ?? ?? ?? c1 c1 e1 0b").Result.FirstOrDefault();
                     UIntPtr codecaveAddress = m.CreateCodeCave(baseScanAddress.ToString("X8"), new byte[] { 0x0F, 0xB7, 0x8A, 0x24, 0x06, 0x00, 0x00, 0x0F, 0xB7, 0x52, 0x0C, 0x88, 0x15, 0x21, 0x00, 0x0F, 0x15, 0x8B, 0xC1, 0xC1, 0xE1, 0x0B, 0x0F, 0xBF, 0xC9, 0xC1, 0xE8, 0x05, 0x09, 0xC8, 0x01, 0xD2, 0xB9, 0x8E, 0x76, 0x21, 0x25, 0x29, 0xD1, 0x66, 0x8B, 0x11, 0x66, 0xF7, 0xD2, 0x0F, 0xBF, 0xCA, 0x0F, 0xBF, 0x15, 0xC4, 0x22, 0xEA, 0x17, 0x31, 0xC8, 0x31, 0xD0, 0xB9, 0xC0, 0x5E, 0x73, 0x16, 0x0F, 0xBF, 0xD1, 0x31, 0xD0, 0x60, 0x8B, 0x0D, 0x21, 0x00, 0x0F, 0x15, 0x89, 0x04, 0x8D, 0x00, 0xC6, 0x43, 0x00, 0x61 }, 63, 0x100);
@@ -67,9 +56,18 @@ namespace mhf_displayer
                     {
                         ModuleList.Add(md.ModuleName);
                     }
+
                     if (ModuleList.Contains("mhfo-hd.dll"))
                     {
                         index = ModuleList.IndexOf("mhfo-hd.dll");
+                        dllName = "mhfo-hd.dll";
+                        isHGE = true;
+                    }
+                    else if (ModuleList.Contains("mhfo.dll"))
+                    {
+                        index = ModuleList.IndexOf("mhfo.dll");
+                        dllName = "mhfo.dll";
+                        isHGE = false;
                     }
                     ProcessModule myModule;
                     ProcessModuleCollection myProcessModuleCollection = proc.Modules;
@@ -89,19 +87,33 @@ namespace mhf_displayer
                     m.WriteBytes(codecaveAddress + 13, storeValueAddressByte);  //1
                     m.WriteBytes(codecaveAddress + 72, storeValueAddressByte);  //2
 
-                    long address = baseAddress + 249263758;
+                    long address = 0;
+                    long address2 = 0;
+                    long address3 = 0;
+
+                    if (isHGE)
+                    {
+                        address = baseAddress + 249263758;
+                        address2 = baseAddress + 27534020;
+                        address3 = baseAddress + 2973376;
+                    }
+                    else
+                    {
+                        address = baseAddress + 102223598;
+                        address2 = baseAddress + 27601756;
+                        address3 = baseAddress + 2865056;
+                    }
+
                     string addressString = address.ToString("X8");
                     byte[] addressByte = Enumerable.Range(0, addressString.Length).Where(x => x % 2 == 0).Select(x => Convert.ToByte(addressString.Substring(x, 2), 16)).ToArray();
                     Array.Reverse(addressByte, 0, addressByte.Length);
                     m.WriteBytes(codecaveAddress + 33, addressByte);  //3
 
-                    long address2 = baseAddress + 27534020;
                     addressString = address2.ToString("X8");
                     addressByte = Enumerable.Range(0, addressString.Length).Where(x => x % 2 == 0).Select(x => Convert.ToByte(addressString.Substring(x, 2), 16)).ToArray();
                     Array.Reverse(addressByte, 0, addressByte.Length);
                     m.WriteBytes(codecaveAddress + 51, addressByte);  //4
 
-                    long address3 = baseAddress + 2973376;
                     addressString = address3.ToString("X8");
                     addressByte = Enumerable.Range(0, addressString.Length).Where(x => x % 2 == 0).Select(x => Convert.ToByte(addressString.Substring(x, 2), 16)).ToArray();
                     Array.Reverse(addressByte, 0, addressByte.Length);
@@ -184,7 +196,12 @@ namespace mhf_displayer
             }
             else
             {
-                panelPlayerInfo.Visible = false;
+                labelHitCountTitle.Visible = false;
+                labelTime1.Visible = false;
+                labelPlayerAtk.Visible = false;
+                labelHitCountsValue.Visible = false;
+                labelTimeValue1.Visible = false;
+                label21.Visible = false;
             }
 
             //hp
@@ -381,7 +398,15 @@ namespace mhf_displayer
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            hitCounts = m.Read2Byte("mhfo-hd.dll+ECB2DC6");
+            if (isHGE)
+            {
+                hitCounts = m.Read2Byte("mhfo-hd.dll+ECB2DC6");
+            }
+            else
+            {
+                hitCounts = m.Read2Byte("mhfo.dll+5CA3430");
+            }
+
             if (showPlayerInfo == 0)
             {
                 labelHitCountTitle.Visible = true;
@@ -394,8 +419,19 @@ namespace mhf_displayer
                 labelHitCountsValue.Text = hitCounts.ToString();
 
                 //Time
-                int timeDef = m.ReadInt("mhfo-hd.dll+2AFA820");
-                int time = m.ReadInt("mhfo-hd.dll+E7FE170");
+                int timeDef;
+                int time;
+                if (isHGE)
+                {
+                    timeDef = m.ReadInt("mhfo-hd.dll+2AFA820");
+                    time = m.ReadInt("mhfo-hd.dll+E7FE170");
+                }
+                else
+                {
+                    timeDef = m.ReadInt("mhfo.dll+1B97780");
+                    time = m.ReadInt("mhfo.dll+5BC6540");
+                }
+
                 switch (timetype)
                 {
                     case 0:
@@ -443,8 +479,18 @@ namespace mhf_displayer
                 }
 
                 //PlayerAtk
-                int raw = m.Read2Byte("mhfo-hd.dll+DC6BEFA");
-                int wepType = m.ReadByte("mhfo-hd.dll+ED3A466");
+                int raw;
+                int wepType;
+                if (isHGE)
+                {
+                    raw = m.Read2Byte("mhfo-hd.dll+DC6BEFA");
+                    wepType = m.ReadByte("mhfo-hd.dll+ED3A466");
+                }
+                else
+                {
+                    raw = m.Read2Byte("mhfo.dll+503433A");
+                    wepType = m.ReadByte("mhfo.dll+60FFCC6");
+                }
                 float mul = 0f;
                 switch (wepType)
                 {
@@ -511,10 +557,25 @@ namespace mhf_displayer
 
             if (showHP == 0)
             {
-                int largeMonster1 = m.ReadByte("mhfo-hd.dll+1BEF354");
-                int largeMonster2 = m.ReadByte("mhfo-hd.dll+1BEF35C");
-                int largeMonster3 = m.ReadByte("mhfo-hd.dll+1BEF364");
-                int largeMonster4 = m.ReadByte("mhfo-hd.dll+1BEF36C");
+                int largeMonster1 = 0;
+                int largeMonster2 = 0;
+                int largeMonster3 = 0;
+                int largeMonster4 = 0;
+
+                if (isHGE)
+                {
+                    largeMonster1 = m.ReadByte("mhfo-hd.dll+1BEF354");
+                    largeMonster2 = m.ReadByte("mhfo-hd.dll+1BEF35C");
+                    largeMonster3 = m.ReadByte("mhfo-hd.dll+1BEF364");
+                    largeMonster4 = m.ReadByte("mhfo-hd.dll+1BEF36C");
+                }
+                else
+                {
+                    largeMonster1 = m.ReadByte("mhfo.dll+1B97794");
+                    largeMonster2 = m.ReadByte("mhfo.dll+1B9779C");
+                    largeMonster3 = m.ReadByte("mhfo.dll+1B977A4");
+                    largeMonster4 = m.ReadByte("mhfo.dll+1B977AC");
+                }
                 int monsterHPValue;
 
                 if (largeMonster1 != 0)
@@ -580,25 +641,52 @@ namespace mhf_displayer
 
             if (showMonsterInfo == 0)
             {
-                float atk = m.ReadFloat("mhfo-hd.dll+0E37DD38,898");
-                float def = m.ReadFloat("mhfo-hd.dll+0E37DD38,89C");
-                labelAtkValue.Text = atk.ToString();
-                labelDefValue.Text = def.ToString();
-                int poison = m.Read2Byte("mhfo-hd.dll+0E37DD38,88A");
-                int poisonMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,888");
-                int sleep = m.Read2Byte("mhfo-hd.dll+0E37DD38,86C");
-                int sleepMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,86A");
-                int para = m.Read2Byte("mhfo-hd.dll+0E37DD38,886");
-                int paraMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,880");
-                int blast = m.Read2Byte("mhfo-hd.dll+0E37DD38,D4A");
-                int blastMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,D48");
-                int stun = m.Read2Byte("mhfo-hd.dll+0E37DD38,872");
-                int stunMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,A74");
-                labelPoison.Text = poison.ToString() + "/" + poisonMax.ToString();
-                labelSleep.Text = sleep.ToString() + "/" + sleepMax.ToString();
-                labelPara.Text = para.ToString() + "/" + paraMax.ToString();
-                labelBlast.Text = blast.ToString() + "/" + blastMax.ToString();
-                labelStun.Text = stun.ToString() + "/" + stunMax.ToString();
+                if (isHGE)
+                {
+                    float atk = m.ReadFloat("mhfo-hd.dll+0E37DD38,898");
+                    float def = m.ReadFloat("mhfo-hd.dll+0E37DD38,89C");
+                    labelAtkValue.Text = atk.ToString();
+                    labelDefValue.Text = def.ToString();
+                    int poison = m.Read2Byte("mhfo-hd.dll+0E37DD38,88A");
+                    int poisonMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,888");
+                    int sleep = m.Read2Byte("mhfo-hd.dll+0E37DD38,86C");
+                    int sleepMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,86A");
+                    int para = m.Read2Byte("mhfo-hd.dll+0E37DD38,886");
+                    int paraMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,880");
+                    int blast = m.Read2Byte("mhfo-hd.dll+0E37DD38,D4A");
+                    int blastMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,D48");
+                    int stun = m.Read2Byte("mhfo-hd.dll+0E37DD38,872");
+                    int stunMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,A74");
+                    labelPoison.Text = poison.ToString() + "/" + poisonMax.ToString();
+                    labelSleep.Text = sleep.ToString() + "/" + sleepMax.ToString();
+                    labelPara.Text = para.ToString() + "/" + paraMax.ToString();
+                    labelBlast.Text = blast.ToString() + "/" + blastMax.ToString();
+                    labelStun.Text = stun.ToString() + "/" + stunMax.ToString();
+                }
+                else
+                {
+                    panelMonsInfo.Visible = false;
+                    //float atk = m.ReadFloat("mhfo.dll+0E37DD38,898");
+                    //float def = m.ReadFloat("mhfo.dll+0E37DD38,89C");
+                    //labelAtkValue.Text = atk.ToString();
+                    //labelDefValue.Text = def.ToString();
+                    //int poison = m.Read2Byte("mhfo.dll+0E37DD38,88A");
+                    //int poisonMax = m.Read2Byte("mhfo.dll+0E37DD38,888");
+                    //int sleep = m.Read2Byte("mhfo.dll+0E37DD38,86C");
+                    //int sleepMax = m.Read2Byte("mhfo.dll+0E37DD38,86A");
+                    //int para = m.Read2Byte("mhfo.dll+0E37DD38,886");
+                    //int paraMax = m.Read2Byte("mhfo.dll+0E37DD38,880");
+                    //int blast = m.Read2Byte("mhfo.dll+0E37DD38,D4A");
+                    //int blastMax = m.Read2Byte("mhfo.dll+0E37DD38,D48");
+                    //int stun = m.Read2Byte("mhfo.dll+0E37DD38,872");
+                    //int stunMax = m.Read2Byte("mhfo.dll+0E37DD38,A74");
+                    //labelPoison.Text = poison.ToString() + "/" + poisonMax.ToString();
+                    //labelSleep.Text = sleep.ToString() + "/" + sleepMax.ToString();
+                    //labelPara.Text = para.ToString() + "/" + paraMax.ToString();
+                    //labelBlast.Text = blast.ToString() + "/" + blastMax.ToString();
+                    //labelStun.Text = stun.ToString() + "/" + stunMax.ToString();
+                }
+
             }
 
             if (showDamage == 0)
@@ -612,7 +700,14 @@ namespace mhf_displayer
                 }
                 else
                 {
-                    damage = m.Read2Byte("mhfo-hd.dll+E8DCF18");
+                    if (isHGE)
+                    {
+                        damage = m.Read2Byte("mhfo-hd.dll+E8DCF18");
+                    }
+                    else
+                    {
+                        damage = m.Read2Byte("mhfo.dll+5CA3430");
+                    }
                 }
 
                 if (prevNum != damage)
@@ -793,5 +888,6 @@ namespace mhf_displayer
         {
             ReloadUI();
         }
+
     }
 }

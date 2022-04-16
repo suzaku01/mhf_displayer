@@ -73,3 +73,7 @@ Fixed a problem where strange HP values were displayed for a moment.
 Changed to be able to display HP of multiple large monster at same time, up to 4.   
 Added a panel that shows various values of large monster such as poison, sleep. Currently only works for 1st monster.  
 
+## v1.4.1
+Added non-HGE support, but monster info panel is disabled temporary.  
+Fixed a problem where even the buttons disappeared when the player information panel was turned off.
+

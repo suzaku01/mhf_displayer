@@ -6,6 +6,8 @@ Currently, only High Grade Edition and fullscreen are supported.
 ## Notes
 D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.  
 
+I'm working on for non HGE version, almost done but unable to find poinster of values such as poison, sleep etc.
+
 # Download
 Go release section and download latest version.
 

@@ -1,11 +1,8 @@
 # Description
 mhf_displayer is a C# form that shows various useful infomations on display.  
-This project is WIP, and has some issues.  
-Currently, only High Grade Edition and fullscreen are supported.   
 
-## Notes
 D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.  
-
+## Notes
 I'm working on for non HGE version, almost done but unable to find poinster of values such as poison, sleep etc.
 
 # Download
@@ -16,6 +13,7 @@ If you feel you want to build the project youeself, place `mhf_displayer.cfg` to
 
 # Usage
 After game has started, run `mhf_displayer.exe`.  
+It's recommended to start it while you are in lobby, otherwise the game will crash.  
 Windows Defender may try to scan app only once at the beginning of launch.  
 This is because mhf_displayer accesses game memory.  
 
@@ -26,6 +24,7 @@ Press `C` button to open configuration menu.
 
 # Known issues
 - Cannot get True value of player attack correctly.  
+- When you try to run displayer multiple times while game is runnning, displayer cannot load correct values. (Apr:20)    
 - If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 
@@ -72,4 +71,8 @@ All previous displays are divided into 3 panels. You can configure them separate
 Fixed a problem where strange HP values were displayed for a moment.  
 Changed to be able to display HP of multiple large monster at same time, up to 4.   
 Added a panel that shows various values of large monster such as poison, sleep. Currently only works for 1st monster.  
+
+## v1.4.1
+Added non-HGE support, but monster info panel is disabled temporary.  
+Fixed a problem where even the buttons disappeared when the player information panel was turned off.
 

@@ -23,23 +23,54 @@ namespace mhf_displayer
         private void Form1_Load(object sender, EventArgs e)
         {
             panelConfig.Visible = false;
+
             this.TopMost = true;
             this.BackColor = Color.LimeGreen;
             this.Location = new Point(0, 0);
+
             panelPlayerInfo.BackColor = Color.LimeGreen;
-            panelHP.BackColor = Color.LimeGreen;
-            panelMonsInfo.BackColor = Color.LimeGreen;
             panelPlayerInfo.Location = new Point(0, 0);
+
+            panelHP.BackColor = Color.LimeGreen;
             panelHP.Location = new Point(0, 0);
+
             panelMonsInfo.Location = new Point(0, 0);
+            panelMonsInfo.BackColor = Color.LimeGreen;
+
             panelSample.Visible = false;
-            string dllName  = "";
 
+            panelBodyParts.Location = new Point(0, 0);
+            panelBodyParts.Visible = false;
+            panelBodyParts.BackColor = Color.LimeGreen;
 
-            LoadConfig();
             int PID = m.GetProcIdFromName("mhf");
+            string dllName = "";
+
+            //Search and get mhfo-hd.dll module base address
+            int index = 0;
+            Process proc = Process.GetProcessById(PID);
+            var ModuleList = new List<string>();
+            foreach (ProcessModule md in proc.Modules)
+            {
+                ModuleList.Add(md.ModuleName);
+            }
+
+            if (ModuleList.Contains("mhfo-hd.dll"))
+            {
+                index = ModuleList.IndexOf("mhfo-hd.dll");
+                dllName = "mhfo-hd.dll";
+                isHGE = true;
+            }
+            else if (ModuleList.Contains("mhfo.dll"))
+            {
+                index = ModuleList.IndexOf("mhfo.dll");
+                dllName = "mhfo.dll";
+                isHGE = false;
+            }
+
             if (PID > 0)
             {
+                LoadConfig();
                 m.OpenProcess(PID);
                 long searchAddress = m.AoBScan("89 04 8D 00 C6 43 00 61 E9").Result.FirstOrDefault();
                 if (searchAddress.ToString("X8") == "00000000")
@@ -47,34 +78,6 @@ namespace mhf_displayer
                     //Create codecave and get its address
                     long baseScanAddress = m.AoBScan("0F B7 8a 24 06 00 00 0f b7 ?? ?? ?? c1 c1 e1 0b").Result.FirstOrDefault();
                     UIntPtr codecaveAddress = m.CreateCodeCave(baseScanAddress.ToString("X8"), new byte[] { 0x0F, 0xB7, 0x8A, 0x24, 0x06, 0x00, 0x00, 0x0F, 0xB7, 0x52, 0x0C, 0x88, 0x15, 0x21, 0x00, 0x0F, 0x15, 0x8B, 0xC1, 0xC1, 0xE1, 0x0B, 0x0F, 0xBF, 0xC9, 0xC1, 0xE8, 0x05, 0x09, 0xC8, 0x01, 0xD2, 0xB9, 0x8E, 0x76, 0x21, 0x25, 0x29, 0xD1, 0x66, 0x8B, 0x11, 0x66, 0xF7, 0xD2, 0x0F, 0xBF, 0xCA, 0x0F, 0xBF, 0x15, 0xC4, 0x22, 0xEA, 0x17, 0x31, 0xC8, 0x31, 0xD0, 0xB9, 0xC0, 0x5E, 0x73, 0x16, 0x0F, 0xBF, 0xD1, 0x31, 0xD0, 0x60, 0x8B, 0x0D, 0x21, 0x00, 0x0F, 0x15, 0x89, 0x04, 0x8D, 0x00, 0xC6, 0x43, 0x00, 0x61 }, 63, 0x100);
-
-                    //Search and get mhfo-hd.dll module base address
-                    int index = 0;
-                    Process proc = Process.GetProcessById(PID);
-                    var ModuleList = new List<string>();
-                    foreach (ProcessModule md in proc.Modules)
-                    {
-                        ModuleList.Add(md.ModuleName);
-                    }
-
-                    if (ModuleList.Contains("mhfo-hd.dll"))
-                    {
-                        index = ModuleList.IndexOf("mhfo-hd.dll");
-                        dllName = "mhfo-hd.dll";
-                        isHGE = true;
-                    }
-                    else if (ModuleList.Contains("mhfo.dll"))
-                    {
-                        index = ModuleList.IndexOf("mhfo.dll");
-                        dllName = "mhfo.dll";
-                        isHGE = false;
-                    }
-                    ProcessModule myModule;
-                    ProcessModuleCollection myProcessModuleCollection = proc.Modules;
-                    myModule = myProcessModuleCollection[index];
-                    IntPtr baseAddressIntPtr = myModule.BaseAddress;
-                    int baseAddressInt = (int)baseAddressIntPtr;
-                    long baseAddress = baseAddressInt;
 
                     //m.WriteBytes(アドレス(string), 書き込むバイト配列);
                     //Change addresses
@@ -86,6 +89,13 @@ namespace mhf_displayer
                     m.WriteBytes(codecaveAddress + 11, by15);
                     m.WriteBytes(codecaveAddress + 13, storeValueAddressByte);  //1
                     m.WriteBytes(codecaveAddress + 72, storeValueAddressByte);  //2
+
+                    ProcessModule myModule;
+                    ProcessModuleCollection myProcessModuleCollection = proc.Modules;
+                    myModule = myProcessModuleCollection[index];
+                    IntPtr baseAddressIntPtr = myModule.BaseAddress;
+                    int baseAddressInt = (int)baseAddressIntPtr;
+                    long baseAddress = baseAddressInt;
 
                     long address = 0;
                     long address2 = 0;
@@ -148,6 +158,9 @@ namespace mhf_displayer
         int height;
         int width;
         int damageTextSize;
+        int ShowBP;
+        int BPPanelx;
+        int BPPanely;
 
 
         void LoadConfig()
@@ -315,6 +328,36 @@ namespace mhf_displayer
             value = line.Substring(line.IndexOf(text) + text.Length);
             numericUpDown18.Value = Convert.ToInt16(value);
             damageTextSize = Convert.ToInt16(value);
+
+            //BP
+            line = File.ReadLines(cfgFileName).ElementAt(30);
+            text = "show=";
+            value = line.Substring(line.IndexOf(text) + text.Length);
+            comboBox9.SelectedIndex = Convert.ToInt16(value);
+            ShowBP = Convert.ToInt16(value);
+
+            line = File.ReadLines(cfgFileName).ElementAt(31);
+            text = "x=";
+            value = line.Substring(line.IndexOf(text) + text.Length);
+            numericUpDown17.Value = Convert.ToInt16(value);
+            BPPanelx = Convert.ToInt16(value);
+
+            line = File.ReadLines(cfgFileName).ElementAt(32);
+            text = "y=";
+            value = line.Substring(line.IndexOf(text) + text.Length);
+            numericUpDown16.Value = Convert.ToInt16(value);
+            BPPanely = Convert.ToInt16(value);
+
+            if (ShowBP == 0)
+            {
+                panelBodyParts.Visible = true;
+                panelBodyParts.Location = new Point(BPPanelx, BPPanely);
+            }
+            else
+            {
+                panelBodyParts.Visible = false;
+            }
+
         }
 
         void ReloadUI()
@@ -365,6 +408,16 @@ namespace mhf_displayer
             }
 
             damageTextSize = (int)numericUpDown18.Value;
+
+            if (comboBox9.SelectedIndex == 0)
+            {
+                panelBodyParts.Visible = true;
+            }
+            else
+            {
+                panelBodyParts.Visible = false;
+            }
+            panelBodyParts.Location = new Point((int)numericUpDown17.Value, (int)numericUpDown16.Value);
         }
 
         void DeleteLabel(Label label)
@@ -555,28 +608,58 @@ namespace mhf_displayer
                 label21.Visible = false;
             }
 
+
+            int largeMonster1 = 0;
+            int largeMonster2 = 0;
+            int largeMonster3 = 0;
+            int largeMonster4 = 0;
+
+            if (isHGE)
+            {
+                largeMonster1 = m.ReadByte("mhfo-hd.dll+1BEF354");
+                largeMonster2 = m.ReadByte("mhfo-hd.dll+1BEF35C");
+                largeMonster3 = m.ReadByte("mhfo-hd.dll+1BEF364");
+                largeMonster4 = m.ReadByte("mhfo-hd.dll+1BEF36C");
+            }
+            else
+            {
+                largeMonster1 = m.ReadByte("mhfo.dll+1B97794");
+                largeMonster2 = m.ReadByte("mhfo.dll+1B9779C");
+                largeMonster3 = m.ReadByte("mhfo.dll+1B977A4");
+                largeMonster4 = m.ReadByte("mhfo.dll+1B977AC");
+            }
+
             if (showHP == 0)
             {
-                int largeMonster1 = 0;
-                int largeMonster2 = 0;
-                int largeMonster3 = 0;
-                int largeMonster4 = 0;
+                if (largeMonster1 != 0)
+                {
+                    if (isHGE)
+                    {
+                        labelBP1.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,348").ToString();
+                        labelBP2.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,350").ToString();
+                        labelBP3.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,358").ToString();
+                        labelBP4.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,360").ToString();
+                        labelBP5.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,368").ToString();
+                        labelBP6.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,370").ToString();
+                        labelBP7.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,378").ToString();
+                        labelBP8.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,380").ToString();
+                        labelBP9.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,388").ToString();
+                        labelBP10.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,390").ToString();
+                    }
+                    else
+                    {
+                        panelBodyParts.Visible = false;
+                    }
 
-                if (isHGE)
-                {
-                    largeMonster1 = m.ReadByte("mhfo-hd.dll+1BEF354");
-                    largeMonster2 = m.ReadByte("mhfo-hd.dll+1BEF35C");
-                    largeMonster3 = m.ReadByte("mhfo-hd.dll+1BEF364");
-                    largeMonster4 = m.ReadByte("mhfo-hd.dll+1BEF36C");
                 }
-                else
-                {
-                    largeMonster1 = m.ReadByte("mhfo.dll+1B97794");
-                    largeMonster2 = m.ReadByte("mhfo.dll+1B9779C");
-                    largeMonster3 = m.ReadByte("mhfo.dll+1B977A4");
-                    largeMonster4 = m.ReadByte("mhfo.dll+1B977AC");
-                }
-                int monsterHPValue;
+            }
+            else
+            {
+                panelBodyParts.Visible = false;
+            }
+
+                if (showHP == 0)
+            {                int monsterHPValue;
 
                 if (largeMonster1 != 0)
                 {
@@ -787,6 +870,10 @@ namespace mhf_displayer
             lineChanger("height=" + numericUpDown14.Value.ToString(), cfgFileName, 26);
             lineChanger("width=" + numericUpDown15.Value.ToString(), cfgFileName, 27);
             lineChanger("size=" + numericUpDown18.Value.ToString(), cfgFileName, 28);
+
+            lineChanger("show=" + comboBox9.SelectedIndex.ToString(), cfgFileName, 30);
+            lineChanger("x=" + numericUpDown17.Value.ToString(), cfgFileName, 31);
+            lineChanger("y=" + numericUpDown16.Value.ToString(), cfgFileName, 32);
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -889,5 +976,19 @@ namespace mhf_displayer
             ReloadUI();
         }
 
+        private void comboBox9_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ReloadUI();
+        }
+
+        private void numericUpDown17_ValueChanged(object sender, EventArgs e)
+        {
+            ReloadUI();
+        }
+
+        private void numericUpDown16_ValueChanged(object sender, EventArgs e)
+        {
+            ReloadUI();
+        }
     }
 }

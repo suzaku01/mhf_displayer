@@ -24,7 +24,7 @@ Press `C` button to open configuration menu.
 
 # Known issues
 - Cannot get True value of player attack correctly.  
-- When you try to run displayer multiple times while game is runnning, displayer cannot load correct values.  
+- When you try to run displayer multiple times while game is runnning, displayer cannot load correct values. (Apr:20)    
 - If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 

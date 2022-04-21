@@ -55,7 +55,7 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - Now remaining or elapsed time can be selected through config fiile.  
 
 ## v1.3
-A- dded the ability to display damage dealt by player(experimental). You can disable this function via config file.
+- Added the ability to display damage dealt by player(experimental). You can disable this function via config file.
 
 ## v1.3.1
 - Added a label to show player attack value, only works in quest. You can select true or raw value via config file.  

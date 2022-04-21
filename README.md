@@ -24,7 +24,6 @@ Press `C` button to open configuration menu.
 
 # Known issues
 - Cannot get True value of player attack correctly.  
-- When you try to run displayer multiple times while game is runnning, displayer cannot load correct values. (Apr:20)    
 - If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 
@@ -32,47 +31,50 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 # Changelog
 
 ## v1.0
-Initial release.
+- Initial release.
 
 ## v1.1
-Added configuration file `mhf_displayer.cfg`.  
-Display position is changeable via config fiile.  
-Added monster name.  
-Added monster attack multiplier.  
-Added monster defence multiplier.  
-Added Hit counts.
+- Added configuration file `mhf_displayer.cfg`.  
+- Display position is changeable via config fiile.  
+- Added monster name.  
+- Added monster attack multiplier.  
+- Added monster defence multiplier.  
+- Added Hit counts.
 
 ## v1.1.1
-Changed size of HP label.  
-Added config file to root folder(for those who want to build themselves).
+- Changed size of HP label.  
+- Added config file to root folder(for those who want to build themselves).
 
 ## v1.2
-Added remaining time.  
-Added time display option to config file.  
+- Added remaining time.  
+- Added time display option to config file.  
 
 ## v1.2.1
-Now remaining or elapsed time can be selected through config fiile.  
+- Now remaining or elapsed time can be selected through config fiile.  
 
 ## v1.3
-Added the ability to display damage dealt by player(experimental). You can disable this function via config file.
+A- dded the ability to display damage dealt by player(experimental). You can disable this function via config file.
 
 ## v1.3.1
-Added a label to show player attack value, only works in quest. You can select true or raw value via config file.  
-Added a relaod button to relaod UI.
+- Added a label to show player attack value, only works in quest. You can select true or raw value via config file.  
+- Added a relaod button to relaod UI.
 
 ## v1.3.2
-Changed reload button text to R from C.  
-Added deleted image file.  
+- Changed reload button text to R from C.  
+- Added deleted image file.  
 
 ## v1.4
-Added `C` button for configuration menu.  
-Added configuration menu. Press `C` buttton to access.  
-All previous displays are divided into 3 panels. You can configure them separately.  
-Fixed a problem where strange HP values were displayed for a moment.  
-Changed to be able to display HP of multiple large monster at same time, up to 4.   
-Added a panel that shows various values of large monster such as poison, sleep. Currently only works for 1st monster.  
+- Added `C` button for configuration menu.  
+- Added configuration menu. Press `C` buttton to access.  
+- All previous displays are divided into 3 panels. You can configure them separately.  
+- Fixed a problem where strange HP values were displayed for a moment.  
+- Changed to be able to display HP of multiple large monster at same time, up to 4.   
+- Added a panel that shows various values of large monster such as poison, sleep. Currently only works for 1st monster.  
 
 ## v1.4.1
-Added non-HGE support, but monster info panel is disabled temporary.  
-Fixed a problem where even the buttons disappeared when the player information panel was turned off.
+- Added non-HGE support, but monster info panel is disabled temporary.  
+- Fixed a problem where even the buttons disappeared when the player information panel was turned off.
 
+## v1.4.2
+- Added a panel that shows resistance of each body parts of large monster. Cueently only works for HGE, and 1st monster.
+- Fixed a problem in which information could not be obtained correctly if the displayer is repeatedly started when the game is already running.

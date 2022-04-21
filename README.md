@@ -75,6 +75,6 @@ A- dded the ability to display damage dealt by player(experimental). You can dis
 - Added non-HGE support, but monster info panel is disabled temporary.  
 - Fixed a problem where even the buttons disappeared when the player information panel was turned off.
 
-## v1.4.1
+## v1.4.2
 - Added a panel that shows resistance of each body parts of large monster. Cueently only works for HGE, and 1st monster.
 - Fixed a problem in which information could not be obtained correctly if the displayer is repeatedly started when the game is already running.

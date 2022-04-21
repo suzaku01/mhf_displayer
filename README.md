@@ -83,3 +83,4 @@ A- dded the ability to display damage dealt by player(experimental). You can dis
 ## v1.4.3
 - Added mosnter size value text(100% base).
 - Fixed a problem in which the HP was not displayed correctly when there were multiple large monsters.
+- (add) Probably fixed a dll error.

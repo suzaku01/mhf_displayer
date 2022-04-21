@@ -40,6 +40,13 @@
             this.labelTimeValue1 = new System.Windows.Forms.Label();
             this.labelTime1 = new System.Windows.Forms.Label();
             this.panelConfig = new System.Windows.Forms.Panel();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.numericUpDown16 = new System.Windows.Forms.NumericUpDown();
+            this.label30 = new System.Windows.Forms.Label();
+            this.numericUpDown17 = new System.Windows.Forms.NumericUpDown();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBox9 = new System.Windows.Forms.ComboBox();
+            this.label29 = new System.Windows.Forms.Label();
             this.buttonCloseConfig = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label32 = new System.Windows.Forms.Label();
@@ -47,15 +54,15 @@
             this.label31 = new System.Windows.Forms.Label();
             this.numericUpDown18 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown15 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown14 = new System.Windows.Forms.NumericUpDown();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
             this.comboBox7 = new System.Windows.Forms.ComboBox();
-            this.numericUpDown12 = new System.Windows.Forms.NumericUpDown();
-            this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.numericUpDown14 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown13 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown12 = new System.Windows.Forms.NumericUpDown();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
             this.label16 = new System.Windows.Forms.Label();
@@ -131,21 +138,19 @@
             this.labelBP3 = new System.Windows.Forms.Label();
             this.labelBP2 = new System.Windows.Forms.Label();
             this.labelBP1 = new System.Windows.Forms.Label();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.comboBox9 = new System.Windows.Forms.ComboBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.numericUpDown16 = new System.Windows.Forms.NumericUpDown();
-            this.label30 = new System.Windows.Forms.Label();
-            this.numericUpDown17 = new System.Windows.Forms.NumericUpDown();
-            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.labelSize = new System.Windows.Forms.Label();
             this.panelPlayerInfo.SuspendLayout();
             this.panelConfig.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
@@ -165,9 +170,6 @@
             this.panelHP.SuspendLayout();
             this.panelMonsInfo.SuspendLayout();
             this.panelBodyParts.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -298,6 +300,86 @@
             this.panelConfig.Size = new System.Drawing.Size(589, 606);
             this.panelConfig.TabIndex = 10;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.numericUpDown16);
+            this.groupBox7.Controls.Add(this.label30);
+            this.groupBox7.Controls.Add(this.numericUpDown17);
+            this.groupBox7.Controls.Add(this.label33);
+            this.groupBox7.Controls.Add(this.comboBox9);
+            this.groupBox7.Controls.Add(this.label29);
+            this.groupBox7.Location = new System.Drawing.Point(9, 476);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(281, 116);
+            this.groupBox7.TabIndex = 20;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Resistance of Body Parts";
+            // 
+            // numericUpDown16
+            // 
+            this.numericUpDown16.Location = new System.Drawing.Point(150, 86);
+            this.numericUpDown16.Maximum = new decimal(new int[] {
+            1080,
+            0,
+            0,
+            0});
+            this.numericUpDown16.Name = "numericUpDown16";
+            this.numericUpDown16.Size = new System.Drawing.Size(120, 23);
+            this.numericUpDown16.TabIndex = 13;
+            this.numericUpDown16.ValueChanged += new System.EventHandler(this.numericUpDown16_ValueChanged);
+            // 
+            // label30
+            // 
+            this.label30.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label30.Location = new System.Drawing.Point(1, 84);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(142, 23);
+            this.label30.TabIndex = 12;
+            this.label30.Text = "Position Y:";
+            // 
+            // numericUpDown17
+            // 
+            this.numericUpDown17.Location = new System.Drawing.Point(150, 57);
+            this.numericUpDown17.Maximum = new decimal(new int[] {
+            1920,
+            0,
+            0,
+            0});
+            this.numericUpDown17.Name = "numericUpDown17";
+            this.numericUpDown17.Size = new System.Drawing.Size(120, 23);
+            this.numericUpDown17.TabIndex = 11;
+            this.numericUpDown17.ValueChanged += new System.EventHandler(this.numericUpDown17_ValueChanged);
+            // 
+            // label33
+            // 
+            this.label33.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label33.Location = new System.Drawing.Point(1, 57);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(142, 23);
+            this.label33.TabIndex = 10;
+            this.label33.Text = "Position X:";
+            // 
+            // comboBox9
+            // 
+            this.comboBox9.FormattingEnabled = true;
+            this.comboBox9.Items.AddRange(new object[] {
+            "On",
+            "Off"});
+            this.comboBox9.Location = new System.Drawing.Point(149, 28);
+            this.comboBox9.Name = "comboBox9";
+            this.comboBox9.Size = new System.Drawing.Size(121, 23);
+            this.comboBox9.TabIndex = 9;
+            this.comboBox9.SelectedIndexChanged += new System.EventHandler(this.comboBox9_SelectedIndexChanged);
+            // 
+            // label29
+            // 
+            this.label29.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label29.Location = new System.Drawing.Point(1, 28);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(142, 23);
+            this.label29.TabIndex = 8;
+            this.label29.Text = "Show:";
+            // 
             // buttonCloseConfig
             // 
             this.buttonCloseConfig.Location = new System.Drawing.Point(495, 515);
@@ -387,6 +469,26 @@
             this.numericUpDown15.TabIndex = 11;
             this.numericUpDown15.ValueChanged += new System.EventHandler(this.numericUpDown15_ValueChanged);
             // 
+            // comboBox7
+            // 
+            this.comboBox7.FormattingEnabled = true;
+            this.comboBox7.Items.AddRange(new object[] {
+            "On",
+            "Off"});
+            this.comboBox7.Location = new System.Drawing.Point(155, 19);
+            this.comboBox7.Name = "comboBox7";
+            this.comboBox7.Size = new System.Drawing.Size(121, 23);
+            this.comboBox7.TabIndex = 7;
+            // 
+            // label18
+            // 
+            this.label18.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label18.Location = new System.Drawing.Point(6, 19);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(142, 23);
+            this.label18.TabIndex = 4;
+            this.label18.Text = "Show:";
+            // 
             // numericUpDown14
             // 
             this.numericUpDown14.Location = new System.Drawing.Point(446, 77);
@@ -399,66 +501,6 @@
             this.numericUpDown14.Size = new System.Drawing.Size(120, 23);
             this.numericUpDown14.TabIndex = 10;
             this.numericUpDown14.ValueChanged += new System.EventHandler(this.numericUpDown14_ValueChanged);
-            // 
-            // label28
-            // 
-            this.label28.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label28.Location = new System.Drawing.Point(298, 106);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(142, 23);
-            this.label28.TabIndex = 9;
-            this.label28.Text = "Width:";
-            // 
-            // label27
-            // 
-            this.label27.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label27.Location = new System.Drawing.Point(298, 77);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(142, 23);
-            this.label27.TabIndex = 8;
-            this.label27.Text = "Height:";
-            // 
-            // comboBox7
-            // 
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Items.AddRange(new object[] {
-            "On",
-            "Off"});
-            this.comboBox7.Location = new System.Drawing.Point(155, 19);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(121, 23);
-            this.comboBox7.TabIndex = 7;
-            // 
-            // numericUpDown12
-            // 
-            this.numericUpDown12.Location = new System.Drawing.Point(447, 48);
-            this.numericUpDown12.Maximum = new decimal(new int[] {
-            1080,
-            0,
-            0,
-            0});
-            this.numericUpDown12.Name = "numericUpDown12";
-            this.numericUpDown12.Size = new System.Drawing.Size(120, 23);
-            this.numericUpDown12.TabIndex = 6;
-            this.numericUpDown12.ValueChanged += new System.EventHandler(this.numericUpDown12_ValueChanged);
-            // 
-            // label17
-            // 
-            this.label17.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label17.Location = new System.Drawing.Point(298, 48);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(142, 23);
-            this.label17.TabIndex = 5;
-            this.label17.Text = "Center Pos Y:";
-            // 
-            // label18
-            // 
-            this.label18.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label18.Location = new System.Drawing.Point(6, 19);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(142, 23);
-            this.label18.TabIndex = 4;
-            this.label18.Text = "Show:";
             // 
             // numericUpDown13
             // 
@@ -473,6 +515,37 @@
             this.numericUpDown13.TabIndex = 3;
             this.numericUpDown13.ValueChanged += new System.EventHandler(this.numericUpDown13_ValueChanged);
             // 
+            // numericUpDown12
+            // 
+            this.numericUpDown12.Location = new System.Drawing.Point(447, 48);
+            this.numericUpDown12.Maximum = new decimal(new int[] {
+            1080,
+            0,
+            0,
+            0});
+            this.numericUpDown12.Name = "numericUpDown12";
+            this.numericUpDown12.Size = new System.Drawing.Size(120, 23);
+            this.numericUpDown12.TabIndex = 6;
+            this.numericUpDown12.ValueChanged += new System.EventHandler(this.numericUpDown12_ValueChanged);
+            // 
+            // label28
+            // 
+            this.label28.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label28.Location = new System.Drawing.Point(298, 106);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(142, 23);
+            this.label28.TabIndex = 9;
+            this.label28.Text = "Width:";
+            // 
+            // label17
+            // 
+            this.label17.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label17.Location = new System.Drawing.Point(298, 48);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(142, 23);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "Center Pos Y:";
+            // 
             // label19
             // 
             this.label19.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -481,6 +554,15 @@
             this.label19.Size = new System.Drawing.Size(142, 23);
             this.label19.TabIndex = 0;
             this.label19.Text = "Center Pos X:";
+            // 
+            // label27
+            // 
+            this.label27.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label27.Location = new System.Drawing.Point(298, 77);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(142, 23);
+            this.label27.TabIndex = 8;
+            this.label27.Text = "Height:";
             // 
             // groupBox5
             // 
@@ -1044,6 +1126,8 @@
             // panelMonsInfo
             // 
             this.panelMonsInfo.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panelMonsInfo.Controls.Add(this.labelSize);
+            this.panelMonsInfo.Controls.Add(this.label34);
             this.panelMonsInfo.Controls.Add(this.labelStun);
             this.panelMonsInfo.Controls.Add(this.labelBlast);
             this.panelMonsInfo.Controls.Add(this.labelPara);
@@ -1058,7 +1142,7 @@
             this.panelMonsInfo.Controls.Add(this.labelAtkTitle);
             this.panelMonsInfo.Controls.Add(this.AtkDefTitle);
             this.panelMonsInfo.Controls.Add(this.labelAtkValue);
-            this.panelMonsInfo.Location = new System.Drawing.Point(12, 380);
+            this.panelMonsInfo.Location = new System.Drawing.Point(12, 287);
             this.panelMonsInfo.Name = "panelMonsInfo";
             this.panelMonsInfo.Size = new System.Drawing.Size(345, 252);
             this.panelMonsInfo.TabIndex = 12;
@@ -1068,7 +1152,7 @@
             this.labelStun.BackColor = System.Drawing.Color.Transparent;
             this.labelStun.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelStun.ForeColor = System.Drawing.Color.Lime;
-            this.labelStun.Location = new System.Drawing.Point(156, 204);
+            this.labelStun.Location = new System.Drawing.Point(170, 270);
             this.labelStun.Name = "labelStun";
             this.labelStun.Size = new System.Drawing.Size(155, 34);
             this.labelStun.TabIndex = 18;
@@ -1080,7 +1164,7 @@
             this.labelBlast.BackColor = System.Drawing.Color.Transparent;
             this.labelBlast.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelBlast.ForeColor = System.Drawing.Color.Lime;
-            this.labelBlast.Location = new System.Drawing.Point(156, 170);
+            this.labelBlast.Location = new System.Drawing.Point(156, 204);
             this.labelBlast.Name = "labelBlast";
             this.labelBlast.Size = new System.Drawing.Size(155, 34);
             this.labelBlast.TabIndex = 17;
@@ -1092,7 +1176,7 @@
             this.labelPara.BackColor = System.Drawing.Color.Transparent;
             this.labelPara.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelPara.ForeColor = System.Drawing.Color.Lime;
-            this.labelPara.Location = new System.Drawing.Point(156, 136);
+            this.labelPara.Location = new System.Drawing.Point(156, 170);
             this.labelPara.Name = "labelPara";
             this.labelPara.Size = new System.Drawing.Size(155, 34);
             this.labelPara.TabIndex = 16;
@@ -1104,7 +1188,7 @@
             this.labelSleep.BackColor = System.Drawing.Color.Transparent;
             this.labelSleep.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelSleep.ForeColor = System.Drawing.Color.Lime;
-            this.labelSleep.Location = new System.Drawing.Point(156, 102);
+            this.labelSleep.Location = new System.Drawing.Point(156, 136);
             this.labelSleep.Name = "labelSleep";
             this.labelSleep.Size = new System.Drawing.Size(155, 34);
             this.labelSleep.TabIndex = 15;
@@ -1116,7 +1200,7 @@
             this.labelPoison.BackColor = System.Drawing.Color.Transparent;
             this.labelPoison.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelPoison.ForeColor = System.Drawing.Color.Lime;
-            this.labelPoison.Location = new System.Drawing.Point(156, 68);
+            this.labelPoison.Location = new System.Drawing.Point(156, 102);
             this.labelPoison.Name = "labelPoison";
             this.labelPoison.Size = new System.Drawing.Size(155, 34);
             this.labelPoison.TabIndex = 14;
@@ -1140,7 +1224,7 @@
             this.label26.BackColor = System.Drawing.Color.Transparent;
             this.label26.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.label26.ForeColor = System.Drawing.Color.Lime;
-            this.label26.Location = new System.Drawing.Point(0, 204);
+            this.label26.Location = new System.Drawing.Point(14, 270);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(150, 34);
             this.label26.TabIndex = 12;
@@ -1152,7 +1236,7 @@
             this.label25.BackColor = System.Drawing.Color.Transparent;
             this.label25.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.label25.ForeColor = System.Drawing.Color.Lime;
-            this.label25.Location = new System.Drawing.Point(0, 170);
+            this.label25.Location = new System.Drawing.Point(0, 204);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(150, 34);
             this.label25.TabIndex = 11;
@@ -1164,7 +1248,7 @@
             this.label24.BackColor = System.Drawing.Color.Transparent;
             this.label24.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.label24.ForeColor = System.Drawing.Color.Lime;
-            this.label24.Location = new System.Drawing.Point(0, 102);
+            this.label24.Location = new System.Drawing.Point(0, 136);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(150, 34);
             this.label24.TabIndex = 10;
@@ -1176,7 +1260,7 @@
             this.label23.BackColor = System.Drawing.Color.Transparent;
             this.label23.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.label23.ForeColor = System.Drawing.Color.Lime;
-            this.label23.Location = new System.Drawing.Point(0, 137);
+            this.label23.Location = new System.Drawing.Point(0, 171);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(150, 34);
             this.label23.TabIndex = 9;
@@ -1188,7 +1272,7 @@
             this.label22.BackColor = System.Drawing.Color.Transparent;
             this.label22.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.label22.ForeColor = System.Drawing.Color.Lime;
-            this.label22.Location = new System.Drawing.Point(0, 68);
+            this.label22.Location = new System.Drawing.Point(0, 102);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(150, 34);
             this.label22.TabIndex = 8;
@@ -1377,85 +1461,29 @@
             this.labelBP1.Text = "300000";
             this.labelBP1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // groupBox7
+            // label34
             // 
-            this.groupBox7.Controls.Add(this.numericUpDown16);
-            this.groupBox7.Controls.Add(this.label30);
-            this.groupBox7.Controls.Add(this.numericUpDown17);
-            this.groupBox7.Controls.Add(this.label33);
-            this.groupBox7.Controls.Add(this.comboBox9);
-            this.groupBox7.Controls.Add(this.label29);
-            this.groupBox7.Location = new System.Drawing.Point(9, 476);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(281, 116);
-            this.groupBox7.TabIndex = 20;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Resistance of Body Parts";
+            this.label34.BackColor = System.Drawing.Color.Transparent;
+            this.label34.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.label34.ForeColor = System.Drawing.Color.Lime;
+            this.label34.Location = new System.Drawing.Point(0, 68);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(150, 34);
+            this.label34.TabIndex = 19;
+            this.label34.Text = "Size:";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // comboBox9
+            // labelSize
             // 
-            this.comboBox9.FormattingEnabled = true;
-            this.comboBox9.Items.AddRange(new object[] {
-            "On",
-            "Off"});
-            this.comboBox9.Location = new System.Drawing.Point(149, 28);
-            this.comboBox9.Name = "comboBox9";
-            this.comboBox9.Size = new System.Drawing.Size(121, 23);
-            this.comboBox9.TabIndex = 9;
-            this.comboBox9.SelectedIndexChanged += new System.EventHandler(this.comboBox9_SelectedIndexChanged);
-            // 
-            // label29
-            // 
-            this.label29.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label29.Location = new System.Drawing.Point(1, 28);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(142, 23);
-            this.label29.TabIndex = 8;
-            this.label29.Text = "Show:";
-            // 
-            // numericUpDown16
-            // 
-            this.numericUpDown16.Location = new System.Drawing.Point(150, 86);
-            this.numericUpDown16.Maximum = new decimal(new int[] {
-            1080,
-            0,
-            0,
-            0});
-            this.numericUpDown16.Name = "numericUpDown16";
-            this.numericUpDown16.Size = new System.Drawing.Size(120, 23);
-            this.numericUpDown16.TabIndex = 13;
-            this.numericUpDown16.ValueChanged += new System.EventHandler(this.numericUpDown16_ValueChanged);
-            // 
-            // label30
-            // 
-            this.label30.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label30.Location = new System.Drawing.Point(1, 84);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(142, 23);
-            this.label30.TabIndex = 12;
-            this.label30.Text = "Position Y:";
-            // 
-            // numericUpDown17
-            // 
-            this.numericUpDown17.Location = new System.Drawing.Point(150, 57);
-            this.numericUpDown17.Maximum = new decimal(new int[] {
-            1920,
-            0,
-            0,
-            0});
-            this.numericUpDown17.Name = "numericUpDown17";
-            this.numericUpDown17.Size = new System.Drawing.Size(120, 23);
-            this.numericUpDown17.TabIndex = 11;
-            this.numericUpDown17.ValueChanged += new System.EventHandler(this.numericUpDown17_ValueChanged);
-            // 
-            // label33
-            // 
-            this.label33.Font = new System.Drawing.Font("Yu Gothic UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label33.Location = new System.Drawing.Point(1, 57);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(142, 23);
-            this.label33.TabIndex = 10;
-            this.label33.Text = "Position X:";
+            this.labelSize.BackColor = System.Drawing.Color.Transparent;
+            this.labelSize.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelSize.ForeColor = System.Drawing.Color.Lime;
+            this.labelSize.Location = new System.Drawing.Point(156, 68);
+            this.labelSize.Name = "labelSize";
+            this.labelSize.Size = new System.Drawing.Size(155, 34);
+            this.labelSize.TabIndex = 20;
+            this.labelSize.Text = "100%";
+            this.labelSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Form1
             // 
@@ -1477,12 +1505,15 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panelPlayerInfo.ResumeLayout(false);
             this.panelConfig.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).EndInit();
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).EndInit();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
@@ -1502,9 +1533,6 @@
             this.panelHP.ResumeLayout(false);
             this.panelMonsInfo.ResumeLayout(false);
             this.panelBodyParts.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -1620,5 +1648,7 @@
         private Label label30;
         private NumericUpDown numericUpDown17;
         private Label label33;
+        private Label labelSize;
+        private Label label34;
     }
 }

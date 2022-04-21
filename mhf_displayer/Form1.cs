@@ -1,6 +1,9 @@
 using Memory;
 using Dictionary;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Reflection.Metadata;
+using System.Runtime.InteropServices;
 
 namespace mhf_displayer
 {
@@ -11,6 +14,13 @@ namespace mhf_displayer
             InitializeComponent();
         }
 
+        [DllImport("user32.dll")]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
+        [DllImport("user32.dll")]
+        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        const int MYACTION_HOTKEY_ID = 1;       //alt
+
+
         Mem m = new Mem();
 
         string cfgFileName = "mhf_displayer.cfg";
@@ -19,9 +29,14 @@ namespace mhf_displayer
         bool isFirstAttack = false;
         int hitCounts = 0;
         bool isHGE = false;
+        int index = 0;
+        int PID = 0;
+        Process proc;
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, 1, (int)Keys.F12);  //alt+f12
+
             panelConfig.Visible = false;
 
             this.TopMost = true;
@@ -43,33 +58,10 @@ namespace mhf_displayer
             panelBodyParts.Visible = false;
             panelBodyParts.BackColor = Color.LimeGreen;
 
-            int PID = m.GetProcIdFromName("mhf");
-            string dllName = "";
-
-            //Search and get mhfo-hd.dll module base address
-            int index = 0;
-            Process proc = Process.GetProcessById(PID);
-            var ModuleList = new List<string>();
-            foreach (ProcessModule md in proc.Modules)
-            {
-                ModuleList.Add(md.ModuleName);
-            }
-
-            if (ModuleList.Contains("mhfo-hd.dll"))
-            {
-                index = ModuleList.IndexOf("mhfo-hd.dll");
-                dllName = "mhfo-hd.dll";
-                isHGE = true;
-            }
-            else if (ModuleList.Contains("mhfo.dll"))
-            {
-                index = ModuleList.IndexOf("mhfo.dll");
-                dllName = "mhfo.dll";
-                isHGE = false;
-            }
-
+            PID = m.GetProcIdFromName("mhf");
             if (PID > 0)
             {
+                LoadDllName();
                 LoadConfig();
                 m.OpenProcess(PID);
                 long searchAddress = m.AoBScan("89 04 8D 00 C6 43 00 61 E9").Result.FirstOrDefault();
@@ -128,6 +120,10 @@ namespace mhf_displayer
                     addressByte = Enumerable.Range(0, addressString.Length).Where(x => x % 2 == 0).Select(x => Convert.ToByte(addressString.Substring(x, 2), 16)).ToArray();
                     Array.Reverse(addressByte, 0, addressByte.Length);
                     m.WriteBytes(codecaveAddress + 60, addressByte);  //5
+                }
+                else
+                {
+                    LoadDllName();
                 }
                 timer1.Start();
             }
@@ -616,10 +612,14 @@ namespace mhf_displayer
 
             if (isHGE)
             {
-                largeMonster1 = m.ReadByte("mhfo-hd.dll+1BEF354");
-                largeMonster2 = m.ReadByte("mhfo-hd.dll+1BEF35C");
-                largeMonster3 = m.ReadByte("mhfo-hd.dll+1BEF364");
-                largeMonster4 = m.ReadByte("mhfo-hd.dll+1BEF36C");
+                //largeMonster1 = m.ReadByte("mhfo-hd.dll+1BEF354");
+                //largeMonster2 = m.ReadByte("mhfo-hd.dll+1BEF35C");
+                //largeMonster3 = m.ReadByte("mhfo-hd.dll+1BEF364");
+                //largeMonster4 = m.ReadByte("mhfo-hd.dll+1BEF36C");
+                largeMonster1 = m.ReadByte("mhfo-hd.dll+1BEF3D9");
+                largeMonster2 = m.ReadByte("mhfo-hd.dll+1BEF3DA");
+                largeMonster3 = m.ReadByte("mhfo-hd.dll+1BEF3DB");
+                largeMonster4 = m.ReadByte("mhfo-hd.dll+1BEF3DC");
             }
             else
             {
@@ -745,6 +745,7 @@ namespace mhf_displayer
                     labelPara.Text = para.ToString() + "/" + paraMax.ToString();
                     labelBlast.Text = blast.ToString() + "/" + blastMax.ToString();
                     labelStun.Text = stun.ToString() + "/" + stunMax.ToString();
+                    labelSize.Text = m.Read2Byte("mhfo-hd.dll+2AFA784").ToString() + "%";
                 }
                 else
                 {
@@ -825,12 +826,7 @@ namespace mhf_displayer
 
         private void buttonConfig_Click(object sender, EventArgs e)
         {
-            panelConfig.Visible = true;
-            //panelConfig.BringToFront();
-
-            groupBox5.Visible = false;
-            comboBox8.SelectedIndex = 1;
-            ReloadUI();
+            OpenConfigMenu();
         }
 
         static void lineChanger(string newText, string fileName, int line_to_edit)
@@ -875,6 +871,52 @@ namespace mhf_displayer
             lineChanger("x=" + numericUpDown17.Value.ToString(), cfgFileName, 31);
             lineChanger("y=" + numericUpDown16.Value.ToString(), cfgFileName, 32);
         }
+
+        void LoadDllName()
+        {
+            string dllName = "";
+
+            //Search and get mhfo-hd.dll module base address
+            proc = Process.GetProcessById(PID);
+            var ModuleList = new List<string>();
+            foreach (ProcessModule md in proc.Modules)
+            {
+                ModuleList.Add(md.ModuleName);
+            }
+
+            if (ModuleList.Contains("mhfo-hd.dll"))
+            {
+                index = ModuleList.IndexOf("mhfo-hd.dll");
+                dllName = "mhfo-hd.dll";
+                isHGE = true;
+            }
+            else if (ModuleList.Contains("mhfo.dll"))
+            {
+                index = ModuleList.IndexOf("mhfo.dll");
+                dllName = "mhfo.dll";
+                isHGE = false;
+            }
+        }
+
+        //protected override void WndProc(ref Message m)
+        //{
+        //    if (m.Msg == 0x0312 && m.WParam.ToInt32() == MYACTION_HOTKEY_ID)
+        //    {
+        //        MessageBox.Show("1456t");
+        //    }
+        //    base.WndProc(ref m);
+        //}
+
+        void OpenConfigMenu()
+        {
+            panelConfig.Visible = true;
+            //panelConfig.BringToFront();
+
+            groupBox5.Visible = false;
+            comboBox8.SelectedIndex = 1;
+            ReloadUI();
+        }
+
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {

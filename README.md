@@ -25,6 +25,7 @@ Press `C` button to open configuration menu.
 # Known issues
 - Cannot get True value of player attack correctly.  
 - Cannot display correct values of resistance and status if there are more than two large monsters. This doesn't affect actual gameplay.
+- Doesn't work on Road Quest.
 - If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 

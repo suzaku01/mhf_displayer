@@ -24,6 +24,8 @@ Press `C` button to open configuration menu.
 
 # Known issues
 - Cannot get True value of player attack correctly.  
+- Cannot display correct values of resistance and status if there are more than two large monsters. This doesn't affect actual gameplay.
+- Doesn't work on Road Quest.
 - If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 
@@ -53,7 +55,7 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - Now remaining or elapsed time can be selected through config fiile.  
 
 ## v1.3
-A- dded the ability to display damage dealt by player(experimental). You can disable this function via config file.
+- Added the ability to display damage dealt by player(experimental). You can disable this function via config file.
 
 ## v1.3.1
 - Added a label to show player attack value, only works in quest. You can select true or raw value via config file.  
@@ -78,3 +80,8 @@ A- dded the ability to display damage dealt by player(experimental). You can dis
 ## v1.4.2
 - Added a panel that shows resistance of each body parts of large monster. Cueently only works for HGE, and 1st monster.
 - Fixed a problem in which information could not be obtained correctly if the displayer is repeatedly started when the game is already running.
+
+## v1.4.3
+- Added mosnter size value text(100% base).
+- Fixed a problem in which the HP was not displayed correctly when there were multiple large monsters.
+- (add) Probably fixed a dll error.

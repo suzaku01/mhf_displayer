@@ -112,6 +112,8 @@
             this.labelMonN2 = new System.Windows.Forms.Label();
             this.labelMonN1 = new System.Windows.Forms.Label();
             this.panelMonsInfo = new System.Windows.Forms.Panel();
+            this.labelSize = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
             this.labelStun = new System.Windows.Forms.Label();
             this.labelBlast = new System.Windows.Forms.Label();
             this.labelPara = new System.Windows.Forms.Label();
@@ -138,8 +140,6 @@
             this.labelBP3 = new System.Windows.Forms.Label();
             this.labelBP2 = new System.Windows.Forms.Label();
             this.labelBP1 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.labelSize = new System.Windows.Forms.Label();
             this.panelPlayerInfo.SuspendLayout();
             this.panelConfig.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -713,7 +713,7 @@
             this.groupBox3.Size = new System.Drawing.Size(287, 114);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Monster Info";
+            this.groupBox3.Text = "Monster Status Info";
             // 
             // comboBox3
             // 
@@ -793,7 +793,7 @@
             this.groupBox2.Size = new System.Drawing.Size(287, 114);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "HP Info";
+            this.groupBox2.Text = "Monster HP Info";
             // 
             // comboBox2
             // 
@@ -1024,7 +1024,7 @@
             this.panelHP.Controls.Add(this.labelMonN1);
             this.panelHP.Location = new System.Drawing.Point(12, 638);
             this.panelHP.Name = "panelHP";
-            this.panelHP.Size = new System.Drawing.Size(345, 152);
+            this.panelHP.Size = new System.Drawing.Size(396, 152);
             this.panelHP.TabIndex = 11;
             // 
             // labelMonHP4
@@ -1032,7 +1032,7 @@
             this.labelMonHP4.BackColor = System.Drawing.Color.Transparent;
             this.labelMonHP4.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelMonHP4.ForeColor = System.Drawing.Color.Lime;
-            this.labelMonHP4.Location = new System.Drawing.Point(225, 102);
+            this.labelMonHP4.Location = new System.Drawing.Point(273, 102);
             this.labelMonHP4.Name = "labelMonHP4";
             this.labelMonHP4.Size = new System.Drawing.Size(117, 34);
             this.labelMonHP4.TabIndex = 24;
@@ -1044,7 +1044,7 @@
             this.labelMonHP3.BackColor = System.Drawing.Color.Transparent;
             this.labelMonHP3.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelMonHP3.ForeColor = System.Drawing.Color.Lime;
-            this.labelMonHP3.Location = new System.Drawing.Point(225, 68);
+            this.labelMonHP3.Location = new System.Drawing.Point(273, 68);
             this.labelMonHP3.Name = "labelMonHP3";
             this.labelMonHP3.Size = new System.Drawing.Size(117, 34);
             this.labelMonHP3.TabIndex = 23;
@@ -1056,7 +1056,7 @@
             this.labelMonHP2.BackColor = System.Drawing.Color.Transparent;
             this.labelMonHP2.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelMonHP2.ForeColor = System.Drawing.Color.Lime;
-            this.labelMonHP2.Location = new System.Drawing.Point(225, 34);
+            this.labelMonHP2.Location = new System.Drawing.Point(273, 34);
             this.labelMonHP2.Name = "labelMonHP2";
             this.labelMonHP2.Size = new System.Drawing.Size(117, 34);
             this.labelMonHP2.TabIndex = 22;
@@ -1068,7 +1068,7 @@
             this.labelMonHP1.BackColor = System.Drawing.Color.Transparent;
             this.labelMonHP1.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelMonHP1.ForeColor = System.Drawing.Color.Lime;
-            this.labelMonHP1.Location = new System.Drawing.Point(225, 0);
+            this.labelMonHP1.Location = new System.Drawing.Point(273, 0);
             this.labelMonHP1.Name = "labelMonHP1";
             this.labelMonHP1.Size = new System.Drawing.Size(120, 34);
             this.labelMonHP1.TabIndex = 21;
@@ -1080,7 +1080,7 @@
             this.labelMonN4.BackColor = System.Drawing.Color.Transparent;
             this.labelMonN4.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelMonN4.ForeColor = System.Drawing.Color.Lime;
-            this.labelMonN4.Location = new System.Drawing.Point(0, 102);
+            this.labelMonN4.Location = new System.Drawing.Point(3, 102);
             this.labelMonN4.Name = "labelMonN4";
             this.labelMonN4.Size = new System.Drawing.Size(219, 34);
             this.labelMonN4.TabIndex = 20;
@@ -1092,7 +1092,7 @@
             this.labelMonN3.BackColor = System.Drawing.Color.Transparent;
             this.labelMonN3.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelMonN3.ForeColor = System.Drawing.Color.Lime;
-            this.labelMonN3.Location = new System.Drawing.Point(0, 68);
+            this.labelMonN3.Location = new System.Drawing.Point(3, 68);
             this.labelMonN3.Name = "labelMonN3";
             this.labelMonN3.Size = new System.Drawing.Size(219, 34);
             this.labelMonN3.TabIndex = 19;
@@ -1104,7 +1104,7 @@
             this.labelMonN2.BackColor = System.Drawing.Color.Transparent;
             this.labelMonN2.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelMonN2.ForeColor = System.Drawing.Color.Lime;
-            this.labelMonN2.Location = new System.Drawing.Point(0, 34);
+            this.labelMonN2.Location = new System.Drawing.Point(3, 34);
             this.labelMonN2.Name = "labelMonN2";
             this.labelMonN2.Size = new System.Drawing.Size(219, 34);
             this.labelMonN2.TabIndex = 18;
@@ -1116,7 +1116,7 @@
             this.labelMonN1.BackColor = System.Drawing.Color.Transparent;
             this.labelMonN1.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelMonN1.ForeColor = System.Drawing.Color.Lime;
-            this.labelMonN1.Location = new System.Drawing.Point(0, 0);
+            this.labelMonN1.Location = new System.Drawing.Point(3, 0);
             this.labelMonN1.Name = "labelMonN1";
             this.labelMonN1.Size = new System.Drawing.Size(219, 34);
             this.labelMonN1.TabIndex = 3;
@@ -1144,15 +1144,39 @@
             this.panelMonsInfo.Controls.Add(this.labelAtkValue);
             this.panelMonsInfo.Location = new System.Drawing.Point(12, 287);
             this.panelMonsInfo.Name = "panelMonsInfo";
-            this.panelMonsInfo.Size = new System.Drawing.Size(345, 252);
+            this.panelMonsInfo.Size = new System.Drawing.Size(345, 281);
             this.panelMonsInfo.TabIndex = 12;
+            // 
+            // labelSize
+            // 
+            this.labelSize.BackColor = System.Drawing.Color.Transparent;
+            this.labelSize.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.labelSize.ForeColor = System.Drawing.Color.Lime;
+            this.labelSize.Location = new System.Drawing.Point(156, 68);
+            this.labelSize.Name = "labelSize";
+            this.labelSize.Size = new System.Drawing.Size(155, 34);
+            this.labelSize.TabIndex = 20;
+            this.labelSize.Text = "100%";
+            this.labelSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label34
+            // 
+            this.label34.BackColor = System.Drawing.Color.Transparent;
+            this.label34.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.label34.ForeColor = System.Drawing.Color.Lime;
+            this.label34.Location = new System.Drawing.Point(0, 68);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(150, 34);
+            this.label34.TabIndex = 19;
+            this.label34.Text = "Size:";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelStun
             // 
             this.labelStun.BackColor = System.Drawing.Color.Transparent;
             this.labelStun.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.labelStun.ForeColor = System.Drawing.Color.Lime;
-            this.labelStun.Location = new System.Drawing.Point(170, 270);
+            this.labelStun.Location = new System.Drawing.Point(156, 238);
             this.labelStun.Name = "labelStun";
             this.labelStun.Size = new System.Drawing.Size(155, 34);
             this.labelStun.TabIndex = 18;
@@ -1224,7 +1248,7 @@
             this.label26.BackColor = System.Drawing.Color.Transparent;
             this.label26.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.label26.ForeColor = System.Drawing.Color.Lime;
-            this.label26.Location = new System.Drawing.Point(14, 270);
+            this.label26.Location = new System.Drawing.Point(0, 238);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(150, 34);
             this.label26.TabIndex = 12;
@@ -1350,7 +1374,7 @@
             this.labelBP10.Name = "labelBP10";
             this.labelBP10.Size = new System.Drawing.Size(102, 34);
             this.labelBP10.TabIndex = 30;
-            this.labelBP10.Text = "300000";
+            this.labelBP10.Text = "0";
             this.labelBP10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelBP9
@@ -1362,7 +1386,7 @@
             this.labelBP9.Name = "labelBP9";
             this.labelBP9.Size = new System.Drawing.Size(102, 34);
             this.labelBP9.TabIndex = 29;
-            this.labelBP9.Text = "300000";
+            this.labelBP9.Text = "0";
             this.labelBP9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelBP8
@@ -1374,7 +1398,7 @@
             this.labelBP8.Name = "labelBP8";
             this.labelBP8.Size = new System.Drawing.Size(102, 34);
             this.labelBP8.TabIndex = 28;
-            this.labelBP8.Text = "300000";
+            this.labelBP8.Text = "0";
             this.labelBP8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelBP7
@@ -1386,7 +1410,7 @@
             this.labelBP7.Name = "labelBP7";
             this.labelBP7.Size = new System.Drawing.Size(102, 34);
             this.labelBP7.TabIndex = 27;
-            this.labelBP7.Text = "300000";
+            this.labelBP7.Text = "0";
             this.labelBP7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelBP6
@@ -1398,7 +1422,7 @@
             this.labelBP6.Name = "labelBP6";
             this.labelBP6.Size = new System.Drawing.Size(102, 34);
             this.labelBP6.TabIndex = 26;
-            this.labelBP6.Text = "300000";
+            this.labelBP6.Text = "0";
             this.labelBP6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelBP5
@@ -1410,7 +1434,7 @@
             this.labelBP5.Name = "labelBP5";
             this.labelBP5.Size = new System.Drawing.Size(102, 34);
             this.labelBP5.TabIndex = 25;
-            this.labelBP5.Text = "300000";
+            this.labelBP5.Text = "0";
             this.labelBP5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelBP4
@@ -1422,7 +1446,7 @@
             this.labelBP4.Name = "labelBP4";
             this.labelBP4.Size = new System.Drawing.Size(102, 34);
             this.labelBP4.TabIndex = 24;
-            this.labelBP4.Text = "300000";
+            this.labelBP4.Text = "0";
             this.labelBP4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelBP3
@@ -1434,7 +1458,7 @@
             this.labelBP3.Name = "labelBP3";
             this.labelBP3.Size = new System.Drawing.Size(102, 34);
             this.labelBP3.TabIndex = 23;
-            this.labelBP3.Text = "300000";
+            this.labelBP3.Text = "0";
             this.labelBP3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelBP2
@@ -1446,7 +1470,7 @@
             this.labelBP2.Name = "labelBP2";
             this.labelBP2.Size = new System.Drawing.Size(102, 34);
             this.labelBP2.TabIndex = 22;
-            this.labelBP2.Text = "300000";
+            this.labelBP2.Text = "0";
             this.labelBP2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelBP1
@@ -1458,32 +1482,9 @@
             this.labelBP1.Name = "labelBP1";
             this.labelBP1.Size = new System.Drawing.Size(102, 34);
             this.labelBP1.TabIndex = 21;
-            this.labelBP1.Text = "300000";
+            this.labelBP1.Text = "0";
             this.labelBP1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label34
-            // 
-            this.label34.BackColor = System.Drawing.Color.Transparent;
-            this.label34.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.label34.ForeColor = System.Drawing.Color.Lime;
-            this.label34.Location = new System.Drawing.Point(0, 68);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(150, 34);
-            this.label34.TabIndex = 19;
-            this.label34.Text = "Size:";
-            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labelSize
-            // 
-            this.labelSize.BackColor = System.Drawing.Color.Transparent;
-            this.labelSize.Font = new System.Drawing.Font("Comic Sans MS", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.labelSize.ForeColor = System.Drawing.Color.Lime;
-            this.labelSize.Location = new System.Drawing.Point(156, 68);
-            this.labelSize.Name = "labelSize";
-            this.labelSize.Size = new System.Drawing.Size(155, 34);
-            this.labelSize.TabIndex = 20;
-            this.labelSize.Text = "100%";
-            this.labelSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelBP1.Click += new System.EventHandler(this.labelBP1_Click);
             // 
             // Form1
             // 

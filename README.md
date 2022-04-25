@@ -1,9 +1,8 @@
 # Description
 mhf_displayer is a C# form that shows various useful infomations on display.  
 
-D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.  
 ## Notes
-I'm working on for non HGE version, almost done but unable to find poinster of values such as poison, sleep etc.
+D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.  
 
 # Download
 Go release section and download latest version.
@@ -14,18 +13,29 @@ If you feel you want to build the project youeself, place `mhf_displayer.cfg` to
 # Usage
 After game has started, run `mhf_displayer.exe`.  
 It's recommended to start it while you are in lobby, otherwise the game will crash.  
-Windows Defender may try to scan app only once at the beginning of launch.  
-This is because mhf_displayer accesses game memory.  
+Windows Defender may try to scan app only once at the beginning of launch, this is because mhf_displayer accesses game memory.  
 
 Press `X` button to shutdown the app.  
 Press `C` button to open configuration menu.
 
 `mhf_displayer.cfg` file is used to store your config value.  
 
+To toggle monster, press `LeftAlt`+`F12`.
+
+# Project status
+
+## High-Grage Edition(HGE)
+- Does not show HP of small monsters.
+- Does not show resistance and status values on Hunter's Road quest.
+- Does not show resistance and status values for 3rd and 4th or more large monster(But are there quests where they exist?).
+
+## Non High-Grage Edition
+- Does not show HP of small monsters.
+- Does not show resistance and status values for large monster on all quests.
+- No toggle option.
+
 # Known issues
 - Cannot get True value of player attack correctly.  
-- Cannot display correct values of resistance and status if there are more than two large monsters. This doesn't affect actual gameplay.
-- Doesn't work on Road Quest.
 - If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 
@@ -85,3 +95,8 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - Added mosnter size value text(100% base).
 - Fixed a problem in which the HP was not displayed correctly when there were multiple large monsters.
 - (add) Probably fixed a dll error.
+
+## v1.4.4
+- Now dispalyer works on Hunter's Road, but resistance and status values are disabled. It only shows their HP. Besides that you can't know their HP until you enter battle field.
+- Changed so that the display of resistance and status values can be toggled when there are multiple large monsters. To toggle, press `LeftAlt`+`F12`. This only works for 1st and 2nd monster. If the monster is selected, it is marked with a star at the beginning of its name.
+- Fixed a problem where stun values were not being displayed correctly.

@@ -363,6 +363,7 @@ namespace mhf_displayer
 
         void ReloadUI()
         {
+            //PlayerInfo
             showPlayerInfo = comboBox1.SelectedIndex;
             timetype = comboBox4.SelectedIndex;
             timeformat = comboBox6.SelectedIndex;
@@ -395,6 +396,7 @@ namespace mhf_displayer
 
             centerx = (int)numericUpDown13.Value;
             centery = (int)numericUpDown12.Value;
+            showDamage = comboBox7.SelectedIndex;
             height = (int)numericUpDown14.Value;
             width = (int)numericUpDown15.Value;
             panelSample.Size = new Size(width, height);
@@ -1265,6 +1267,11 @@ namespace mhf_displayer
         private void labelBP1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBox7_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ReloadUI();
         }
     }
 }

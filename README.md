@@ -100,3 +100,6 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - Now dispalyer works on Hunter's Road, but resistance and status values are disabled. It only shows their HP. Besides that you can't know their HP until you enter battle field.
 - Changed so that the display of resistance and status values can be toggled when there are multiple large monsters. To toggle, press `LeftAlt`+`F12`. This only works for 1st and 2nd monster. If the monster is selected, it is marked with a star at the beginning of its name.
 - Fixed a problem where stun values were not being displayed correctly.
+
+## v1.4.5
+- Fixed a problem in which damage notations were displayed even if they were turned off.

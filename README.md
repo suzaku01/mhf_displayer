@@ -24,12 +24,12 @@ To toggle monster, press `LeftAlt`+`F12`.
 
 # Project status
 
-## High-Grage Edition(HGE)
+## High-Grade Edition(HGE)
 - Does not show HP of small monsters.
 - Does not show resistance and status values on Hunter's Road quest.
 - Does not show resistance and status values for 3rd and 4th or more large monster(But are there quests where they exist?).
 
-## Non High-Grage Edition
+## Non High-Grade Edition
 - Does not show HP of small monsters.
 - Does not show resistance and status values for large monster on all quests.
 - No toggle option.

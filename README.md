@@ -1,9 +1,6 @@
 # Description
 mhf_displayer is a C# form that shows various useful infomations on display.  
 
-## Notes
-D3D has an overlay function, if you have enough knowledge you can do similar things with that, like Lvdew.  
-
 # Download
 Go release section and download latest version.
 
@@ -25,19 +22,22 @@ To toggle monster, press `LeftAlt`+`F12`.
 # Project status
 
 ## High-Grade Edition(HGE)
-- Does not show HP of small monsters.
-- Does not show resistance and status values on Hunter's Road quest.
-- Does not show resistance and status values for 3rd and 4th or more large monster(But are there quests where they exist?).
+-
 
 ## Non High-Grade Edition
-- Does not show HP of small monsters.
-- Does not show resistance and status values for large monster on all quests.
-- No toggle option.
+- Cannot get monster size value. 
 
-# Known issues
+## Known issues
+- Does not show HP of small monsters.
+- Does not work correctly on Great Slaying and Caravan quest.
+- Does not show resistance and status values for 3rd and 4th or more large monster(But are there quests where they exist?).
 - Cannot get True value of player attack correctly.  
 - If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+
+## Todo
+- Implementation of text size and font changes.
+- Support for various types of display resolutions.
 
 
 # Changelog
@@ -103,3 +103,8 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 
 ## v1.4.5
 - Fixed a problem in which damage notations were displayed even if they were turned off.
+
+## v1.5
+- (HGE) Now works on Hunter's road quest.  
+- (nonHGE) Now it shows monster's resistance and status values.
+- (nonHGE) Now works on Hunter's road quest.  

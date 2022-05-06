@@ -1181,7 +1181,7 @@
             this.labelStun.Name = "labelStun";
             this.labelStun.Size = new System.Drawing.Size(155, 34);
             this.labelStun.TabIndex = 18;
-            this.labelStun.Text = "3000 / 3000";
+            this.labelStun.Text = "0 / 0";
             this.labelStun.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelBlast
@@ -1193,7 +1193,7 @@
             this.labelBlast.Name = "labelBlast";
             this.labelBlast.Size = new System.Drawing.Size(155, 34);
             this.labelBlast.TabIndex = 17;
-            this.labelBlast.Text = "3000 / 3000";
+            this.labelBlast.Text = "0 / 0";
             this.labelBlast.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelPara
@@ -1205,7 +1205,7 @@
             this.labelPara.Name = "labelPara";
             this.labelPara.Size = new System.Drawing.Size(155, 34);
             this.labelPara.TabIndex = 16;
-            this.labelPara.Text = "3000 / 3000";
+            this.labelPara.Text = "0 / 0";
             this.labelPara.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelSleep
@@ -1217,7 +1217,7 @@
             this.labelSleep.Name = "labelSleep";
             this.labelSleep.Size = new System.Drawing.Size(155, 34);
             this.labelSleep.TabIndex = 15;
-            this.labelSleep.Text = "3000 / 3000";
+            this.labelSleep.Text = "0 / 0";
             this.labelSleep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelPoison
@@ -1229,7 +1229,7 @@
             this.labelPoison.Name = "labelPoison";
             this.labelPoison.Size = new System.Drawing.Size(155, 34);
             this.labelPoison.TabIndex = 14;
-            this.labelPoison.Text = "3000 / 3000";
+            this.labelPoison.Text = "0 / 0";
             this.labelPoison.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelDefValue
@@ -1241,7 +1241,7 @@
             this.labelDefValue.Name = "labelDefValue";
             this.labelDefValue.Size = new System.Drawing.Size(155, 34);
             this.labelDefValue.TabIndex = 13;
-            this.labelDefValue.Text = "3000 / 3000";
+            this.labelDefValue.Text = "0";
             this.labelDefValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label26
@@ -1337,7 +1337,7 @@
             this.labelAtkValue.Name = "labelAtkValue";
             this.labelAtkValue.Size = new System.Drawing.Size(155, 34);
             this.labelAtkValue.TabIndex = 6;
-            this.labelAtkValue.Text = "3000 / 3000";
+            this.labelAtkValue.Text = "0";
             this.labelAtkValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panelSample

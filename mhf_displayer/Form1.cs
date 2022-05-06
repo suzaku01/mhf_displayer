@@ -1,8 +1,6 @@
-using Memory;
+Ôªøusing Memory;
 using Dictionary;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 
 namespace mhf_displayer
@@ -37,6 +35,7 @@ namespace mhf_displayer
         int largeMonster3 = 0;
         int largeMonster4 = 0;
         int selectedMonsterNo = 1;   //1,2,3,4
+        bool isRoad = false;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -76,7 +75,7 @@ namespace mhf_displayer
                     long baseScanAddress = m.AoBScan("0F B7 8a 24 06 00 00 0f b7 ?? ?? ?? c1 c1 e1 0b").Result.FirstOrDefault();
                     UIntPtr codecaveAddress = m.CreateCodeCave(baseScanAddress.ToString("X8"), new byte[] { 0x0F, 0xB7, 0x8A, 0x24, 0x06, 0x00, 0x00, 0x0F, 0xB7, 0x52, 0x0C, 0x88, 0x15, 0x21, 0x00, 0x0F, 0x15, 0x8B, 0xC1, 0xC1, 0xE1, 0x0B, 0x0F, 0xBF, 0xC9, 0xC1, 0xE8, 0x05, 0x09, 0xC8, 0x01, 0xD2, 0xB9, 0x8E, 0x76, 0x21, 0x25, 0x29, 0xD1, 0x66, 0x8B, 0x11, 0x66, 0xF7, 0xD2, 0x0F, 0xBF, 0xCA, 0x0F, 0xBF, 0x15, 0xC4, 0x22, 0xEA, 0x17, 0x31, 0xC8, 0x31, 0xD0, 0xB9, 0xC0, 0x5E, 0x73, 0x16, 0x0F, 0xBF, 0xD1, 0x31, 0xD0, 0x60, 0x8B, 0x0D, 0x21, 0x00, 0x0F, 0x15, 0x89, 0x04, 0x8D, 0x00, 0xC6, 0x43, 0x00, 0x61 }, 63, 0x100);
 
-                    //m.WriteBytes(ÉAÉhÉåÉX(string), èëÇ´çûÇﬁÉoÉCÉgîzóÒ);
+                    //m.WriteBytes(„Ç¢„Éâ„É¨„Çπ(string), Êõ∏„ÅçËæº„ÇÄ„Éê„Ç§„ÉàÈÖçÂàó);
                     //Change addresses
                     UIntPtr storeValueAddress = codecaveAddress + 125;                  //address where store some value?
                     string storeValueAddressString = storeValueAddress.ToString("X8");
@@ -162,7 +161,6 @@ namespace mhf_displayer
         int ShowBP;
         int BPPanelx;
         int BPPanely;
-
 
         void LoadConfig()
         {
@@ -439,8 +437,8 @@ namespace mhf_displayer
         {
             Label namelabel = new Label();
             Random rnd = new Random();
-            int x = rnd.Next(centerx , centerx + width );
-            int y = rnd.Next(centery , centery + height);
+            int x = rnd.Next(centerx, centerx + width);
+            int y = rnd.Next(centery, centery + height);
             namelabel.Location = new Point(x, y);
             namelabel.BringToFront();
             namelabel.Text = damage.ToString();
@@ -456,197 +454,706 @@ namespace mhf_displayer
         {
             if (isHGE)
             {
-                hitCounts = m.Read2Byte("mhfo-hd.dll+ECB2DC6");
-            }
-            else
-            {
-                hitCounts = m.Read2Byte("mhfo.dll+5CA3430");
-            }
-
-            if (showPlayerInfo == 0)
-            {
-                labelHitCountTitle.Visible = true;
-                labelTime1.Visible = true;
-                labelPlayerAtk.Visible = true;
-                labelHitCountsValue.Visible = true;
-                labelTimeValue1.Visible = true;
-                label21.Visible = true;
-                //HitCounts
-                labelHitCountsValue.Text = hitCounts.ToString();
-
-                //Time
-                int timeDef;
-                int time;
-                if (isHGE)
+                if (showPlayerInfo == 0)
                 {
+                    labelHitCountTitle.Visible = true;
+                    labelTime1.Visible = true;
+                    labelPlayerAtk.Visible = true;
+                    labelHitCountsValue.Visible = true;
+                    labelTimeValue1.Visible = true;
+                    label21.Visible = true;
+
+                    //HitCounts
+                    hitCounts = m.Read2Byte("mhfo-hd.dll+ECB2DC6");
+                    labelHitCountsValue.Text = hitCounts.ToString();
+
+                    //Time
+                    int timeDef;
+                    int time;
                     timeDef = m.ReadInt("mhfo-hd.dll+2AFA820");
                     time = m.ReadInt("mhfo-hd.dll+E7FE170");
-                }
-                else
-                {
-                    timeDef = m.ReadInt("mhfo.dll+1B97780");
-                    time = m.ReadInt("mhfo.dll+5BC6540");
-                }
+                    switch (timetype)
+                    {
+                        case 0:
+                            labelTime1.Text = "Remaining Time:";
+                            switch (timeformat)
+                            {
+                                case 0:
+                                    int seconds = (time / 30) % 60;
+                                    int minutes = (time / 30) / 60;
+                                    string time1 = minutes + ":" + seconds;
+                                    labelTimeValue1.Text = time1;
+                                    break;
 
-                switch (timetype)
-                {
-                    case 0:
-                        labelTime1.Text = "Remaining Time:";
-                        switch (timeformat)
-                        {
-                            case 0:
-                                int seconds = (time / 30) % 60;
-                                int minutes = (time / 30) / 60;
-                                string time1 = minutes + ":" + seconds;
-                                labelTimeValue1.Text = time1;
-                                break;
+                                case 1:
+                                    labelTimeValue1.Text = (time / 30).ToString();
+                                    break;
 
-                            case 1:
-                                labelTimeValue1.Text = (time / 30).ToString();
-                                break;
+                                case 2:
+                                    labelTimeValue1.Text = time.ToString();
+                                    break;
+                            }
+                            break;
 
-                            case 2:
-                                labelTimeValue1.Text = time.ToString();
-                                break;
-                        }
-                        break;
+                        case 1:
+                            labelTime1.Text = "Elapsed Time";
+                            switch (timeformat)
+                            {
+                                case 0:
+                                    int timeEla = timeDef - time;
+                                    int seconds1 = (timeEla / 30) % 60;
+                                    int minutes1 = (timeEla / 30) / 60;
+                                    string time2 = minutes1 + ":" + seconds1;
+                                    labelTimeValue1.Text = time2;
+                                    break;
 
-                    case 1:
-                        labelTime1.Text = "Elapsed Time";
-                        switch (timeformat)
-                        {
-                            case 0:
-                                int timeEla = timeDef - time;
-                                int seconds1 = (timeEla / 30) % 60;
-                                int minutes1 = (timeEla / 30) / 60;
-                                string time2 = minutes1 + ":" + seconds1;
-                                labelTimeValue1.Text = time2;
-                                break;
+                                case 1:
+                                    labelTimeValue1.Text = ((timeDef - time) / 30).ToString();
+                                    break;
 
-                            case 1:
-                                labelTimeValue1.Text = ((timeDef - time) / 30).ToString();
-                                break;
+                                case 2:
+                                    labelTimeValue1.Text = (timeDef - time).ToString();
+                                    break;
+                            }
+                            break;
+                    }
 
-                            case 2:
-                                labelTimeValue1.Text = (timeDef - time).ToString();
-                                break;
-                        }
-                        break;
-                }
-
-                //PlayerAtk
-                int raw;
-                int wepType;
-                if (isHGE)
-                {
+                    //PlayerAtk
+                    int raw;
+                    int wepType;
                     raw = m.Read2Byte("mhfo-hd.dll+DC6BEFA");
                     wepType = m.ReadByte("mhfo-hd.dll+ED3A466");
-                }
-                else
-                {
-                    raw = m.Read2Byte("mhfo.dll+503433A");
-                    wepType = m.ReadByte("mhfo.dll+60FFCC6");
-                }
-                float mul = 0f;
-                switch (wepType)
-                {
-                    case 0:
-                    case 1:
-                        mul = 1.4f;
-                        break;
-                    case 2:
-                    case 3:
-                        mul = 4.8f;
-                        break;
-                    case 4:
-                    case 5:
-                        mul = 5.2f;
-                        break;
-                    case 6:
-                    case 7:
-                        mul = 2.3f;
-                        break;
-                    case 8:
-                    case 9:
-                    case 10:
-                    case 22:
-                        mul = 1.2f;
-                        break;
-                    case 34:
-                    case 36:
-                        mul = 5.4f;
-                        break;
-                    case 35:
-                        mul = 1.8f;
-                        break;
-                    default:
-                        mul = 1f;
-                        break;
-                }
-                if (atkFormat == 0)
-                {
-                    label21.Visible = true;
-                    labelPlayerAtk.Visible = true;
-                    labelPlayerAtk.Text = Math.Floor((raw * mul)).ToString();
-                }
-                else if (atkFormat == 1)
-                {
-                    label21.Visible = true;
-                    labelPlayerAtk.Visible = true;
-                    labelPlayerAtk.Text = raw.ToString();
-                }
-                else
-                {
-                    label21.Visible = false;
-                    labelPlayerAtk.Visible = false;
-                }
-            }
-            else
-            {
-                labelHitCountTitle.Visible = false;
-                labelTime1.Visible = false;
-                labelPlayerAtk.Visible = false;
-                labelHitCountsValue.Visible = false;
-                labelTimeValue1.Visible = false;
-                label21.Visible = false;
-            }
-
-            if (isHGE)
-            {
-                //road in battle
-                largeMonster1 = m.ReadByte("mhfo-hd.dll+E87FAFC");
-                largeMonster2 = m.ReadByte("mhfo-hd.dll+E87FB00");
-                if (largeMonster1 != 0 | largeMonster2 != 0)
-                {
-                    
-                }
-                else
-                {
-                    if (m.ReadByte("mhfo-hd.dll+DCD4490") == 0)
+                    float mul = 0f;
+                    switch (wepType)
                     {
-                        //largeMonster1 = m.ReadByte("mhfo-hd.dll+1BEF354");
-                        //largeMonster2 = m.ReadByte("mhfo-hd.dll+1BEF35C");
-                        //largeMonster3 = m.ReadByte("mhfo-hd.dll+1BEF364");
-                        //largeMonster4 = m.ReadByte("mhfo-hd.dll+1BEF36C");
-                        //largeMonster1 = m.ReadByte("mhfo-hd.dll+1BEF3D9");
-                        //largeMonster2 = m.ReadByte("mhfo-hd.dll+1BEF3DA");
-                        //largeMonster3 = m.ReadByte("mhfo-hd.dll+1BEF3DB");
-                        //largeMonster4 = m.ReadByte("mhfo-hd.dll+1BEF3DC");
-                        largeMonster1 = m.ReadByte("mhfo-hd.dll+1BEF3D9");
-                        largeMonster2 = m.ReadByte("mhfo-hd.dll+1BEF3DA");
-                        largeMonster3 = m.ReadByte("mhfo-hd.dll+1BEF3DB");
-                        largeMonster4 = m.ReadByte("mhfo-hd.dll+1BEF3DC");
+                        case 0:
+                        case 1:
+                            mul = 1.4f;
+                            break;
+                        case 2:
+                        case 3:
+                            mul = 4.8f;
+                            break;
+                        case 4:
+                        case 5:
+                            mul = 5.2f;
+                            break;
+                        case 6:
+                        case 7:
+                            mul = 2.3f;
+                            break;
+                        case 8:
+                        case 9:
+                        case 10:
+                        case 22:
+                            mul = 1.2f;
+                            break;
+                        case 34:
+                        case 36:
+                            mul = 5.4f;
+                            break;
+                        case 35:
+                            mul = 1.8f;
+                            break;
+                        default:
+                            mul = 1f;
+                            break;
+                    }
+
+                    if (atkFormat == 0)
+                    {
+                        label21.Visible = true;
+                        labelPlayerAtk.Visible = true;
+                        labelPlayerAtk.Text = Math.Floor((raw * mul)).ToString();
+                    }
+                    else if (atkFormat == 1)
+                    {
+                        label21.Visible = true;
+                        labelPlayerAtk.Visible = true;
+                        labelPlayerAtk.Text = raw.ToString();
                     }
                     else
                     {
-                        //road in ready
-                        panelMonsInfo.Visible = false;
-                        panelBodyParts.Visible = false;
-                        largeMonster1 = m.ReadByte("mhfo-hd.dll+DCD4478");
-                        largeMonster2 = m.ReadByte("mhfo-hd.dll+DCD4498");
-                        largeMonster3 = 0;
-                        largeMonster4 = 0;
+                        label21.Visible = false;
+                        labelPlayerAtk.Visible = false;
                     }
+
+                }
+                else
+                {
+                    labelHitCountTitle.Visible = false;
+                    labelTime1.Visible = false;
+                    labelPlayerAtk.Visible = false;
+                    labelHitCountsValue.Visible = false;
+                    labelTimeValue1.Visible = false;
+                    label21.Visible = false;
+                }
+
+
+
+                if (m.ReadByte("mhfo-hd.dll+DCD4490") == 0)
+                {
+                    //normal quest
+                    largeMonster1 = m.ReadByte("mhfo-hd.dll+1BEF3D9");
+                    largeMonster2 = m.ReadByte("mhfo-hd.dll+1BEF3DA");
+                    largeMonster3 = m.ReadByte("mhfo-hd.dll+1BEF3DB");
+                    largeMonster4 = m.ReadByte("mhfo-hd.dll+1BEF3DC");
+                    isRoad = false;
+                }
+                else
+                {
+                    //road in ready
+                    //panelMonsInfo.Visible = false;      //temp disabled
+                    //panelBodyParts.Visible = false;     //temp disabled
+                    largeMonster1 = m.ReadByte("mhfo-hd.dll+DCD4478");
+                    largeMonster2 = m.ReadByte("mhfo-hd.dll+DCD4498");
+                    largeMonster3 = 0;
+                    largeMonster4 = 0;
+                    isRoad = true;
+                }
+
+                if (ShowBP == 0)
+                {
+                    if (!isRoad)
+                    {
+                        switch (selectedMonsterNo)
+                        {
+                            case 1:
+                                if (largeMonster1 != 0)
+                                {
+                                    labelBP1.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,348").ToString();
+                                    labelBP2.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,350").ToString();
+                                    labelBP3.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,358").ToString();
+                                    labelBP4.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,360").ToString();
+                                    labelBP5.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,368").ToString();
+                                    labelBP6.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,370").ToString();
+                                    labelBP7.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,378").ToString();
+                                    labelBP8.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,380").ToString();
+                                    labelBP9.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,388").ToString();
+                                    labelBP10.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,390").ToString();
+                                }
+                                break;
+                            case 2:
+                                if (largeMonster2 != 0)
+                                {
+                                    labelBP1.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1238").ToString();
+                                    labelBP2.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1240").ToString();
+                                    labelBP3.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1248").ToString();
+                                    labelBP4.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1250").ToString();
+                                    labelBP5.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1258").ToString();
+                                    labelBP6.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1260").ToString();
+                                    labelBP7.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1268").ToString();
+                                    labelBP8.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1270").ToString();
+                                    labelBP9.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1278").ToString();
+                                    labelBP10.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1280").ToString();
+                                }
+                                break;
+                            case 3:
+                                //not impletemnted
+                                labelBP1.Text = "0";
+                                labelBP2.Text = "0";
+                                labelBP3.Text = "0";
+                                labelBP4.Text = "0";
+                                labelBP5.Text = "0";
+                                labelBP6.Text = "0";
+                                labelBP7.Text = "0";
+                                labelBP8.Text = "0";
+                                labelBP9.Text = "0";
+                                labelBP10.Text = "0";
+                                break;
+                            case 4:
+                                //not impletemnted
+                                if (true)
+                                    labelBP1.Text = "0";
+                                labelBP2.Text = "0";
+                                labelBP3.Text = "0";
+                                labelBP4.Text = "0";
+                                labelBP5.Text = "0";
+                                labelBP6.Text = "0";
+                                labelBP7.Text = "0";
+                                labelBP8.Text = "0";
+                                labelBP9.Text = "0";
+                                labelBP10.Text = "0";
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (selectedMonsterNo)
+                        {
+                            case 1:
+                                if (largeMonster1 != 0)
+                                {
+                                    labelBP1.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,348").ToString();
+                                    labelBP2.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,350").ToString();
+                                    labelBP3.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,358").ToString();
+                                    labelBP4.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,360").ToString();
+                                    labelBP5.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,368").ToString();
+                                    labelBP6.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,370").ToString();
+                                    labelBP7.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,378").ToString();
+                                    labelBP8.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,380").ToString();
+                                    labelBP9.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,388").ToString();
+                                    labelBP10.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,390").ToString();
+                                }
+                                break;
+                            case 2:
+                                if (largeMonster2 != 0)
+                                {
+                                    labelBP1.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1238").ToString();
+                                    labelBP2.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1240").ToString();
+                                    labelBP3.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1248").ToString();
+                                    labelBP4.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1250").ToString();
+                                    labelBP5.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1258").ToString();
+                                    labelBP6.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1260").ToString();
+                                    labelBP7.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1268").ToString();
+                                    labelBP8.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1270").ToString();
+                                    labelBP9.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1278").ToString();
+                                    labelBP10.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1280").ToString();
+                                }
+                                break;
+                            case 3:
+                                //not impletemnted
+                                labelBP1.Text = "0";
+                                labelBP2.Text = "0";
+                                labelBP3.Text = "0";
+                                labelBP4.Text = "0";
+                                labelBP5.Text = "0";
+                                labelBP6.Text = "0";
+                                labelBP7.Text = "0";
+                                labelBP8.Text = "0";
+                                labelBP9.Text = "0";
+                                labelBP10.Text = "0";
+                                break;
+                            case 4:
+                                //not impletemnted
+                                if (true)
+                                    labelBP1.Text = "0";
+                                labelBP2.Text = "0";
+                                labelBP3.Text = "0";
+                                labelBP4.Text = "0";
+                                labelBP5.Text = "0";
+                                labelBP6.Text = "0";
+                                labelBP7.Text = "0";
+                                labelBP8.Text = "0";
+                                labelBP9.Text = "0";
+                                labelBP10.Text = "0";
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    panelBodyParts.Visible = false;
+                }
+
+                if (showHP == 0)
+                {
+                    int monsterHPValue;
+
+                    if (largeMonster1 != 0)
+                    {
+                        labelMonN1.Visible = true;
+                        labelMonHP1.Visible = true;
+                        List.MonsterID.TryGetValue(largeMonster1, out string monsterName1);
+                        if (selectedMonsterNo == 1)
+                        {
+                            monsterName1 = "‚òÖ" + monsterName1;
+                        }
+                        labelMonN1.Text = monsterName1 + ":";
+                        monsterHPValue = m.Read2Byte("0043C600");
+                        labelMonHP1.Text = monsterHPValue.ToString();
+                    }
+                    else
+                    {
+                        labelMonN1.Visible = false;
+                        labelMonHP1.Visible = false;
+                    }
+
+                    if (largeMonster2 != 0)
+                    {
+                        labelMonN2.Visible = true;
+                        labelMonHP2.Visible = true;
+                        List.MonsterID.TryGetValue(largeMonster2, out string monsterName2);
+                        if (selectedMonsterNo == 2)
+                        {
+                            monsterName2 = "‚òÖ" + monsterName2;
+                        }
+                        labelMonN2.Text = monsterName2 + ":";
+                        monsterHPValue = m.Read2Byte("0043C604");
+                        labelMonHP2.Text = monsterHPValue.ToString();
+                    }
+                    else
+                    {
+                        labelMonN2.Visible = false;
+                        labelMonHP2.Visible = false;
+                    }
+
+                    if (largeMonster3 != 0)
+                    {
+                        labelMonN3.Visible = true;
+                        labelMonHP3.Visible = true;
+                        List.MonsterID.TryGetValue(largeMonster3, out string monsterName3);
+                        if (selectedMonsterNo == 3)
+                        {
+                            monsterName3 = "‚òÖ" + monsterName3;
+                        }
+                        labelMonN3.Text = monsterName3 + ":";
+                        monsterHPValue = m.Read2Byte("0043C608");
+                        labelMonHP3.Text = monsterHPValue.ToString();
+                    }
+                    else
+                    {
+                        labelMonN3.Visible = false;
+                        labelMonHP3.Visible = false;
+                    }
+
+                    if (largeMonster4 != 0)
+                    {
+                        labelMonN4.Visible = true;
+                        labelMonHP4.Visible = true;
+                        List.MonsterID.TryGetValue(largeMonster4, out string monsterName4);
+                        if (selectedMonsterNo == 4)
+                        {
+                            monsterName4 = "‚òÖ" + monsterName4;
+                        }
+                        labelMonN4.Text = monsterName4 + ":";
+                        monsterHPValue = m.Read2Byte("0043C60C");
+                        labelMonHP4.Text = monsterHPValue.ToString();
+                    }
+                    else
+                    {
+                        labelMonN4.Visible = false;
+                        labelMonHP4.Visible = false;
+                    }
+                }
+                else
+                {
+                    labelMonN1.Visible = false;
+                }
+
+                if (showMonsterInfo == 0)
+                {
+                    if(!isRoad)
+                    {
+                        switch (selectedMonsterNo)
+                        {
+                            case 1:
+                                if (largeMonster1 != 0)
+                                {
+                                    labelAtkValue.Text = m.ReadFloat("mhfo-hd.dll+0E37DD38,898").ToString();
+                                    labelDefValue.Text = m.ReadFloat("mhfo-hd.dll+0E37DD38,89C").ToString();
+                                    labelPoison.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,88A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,888").ToString();
+                                    labelSleep.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,86C").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,86A").ToString();
+                                    labelPara.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,886").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,880").ToString();
+                                    labelBlast.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,D4A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,D48").ToString();
+                                    labelStun.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,872").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,A74").ToString();
+                                    labelSize.Text = m.Read2Byte("mhfo-hd.dll+2AFA784").ToString() + "%";
+                                }
+                                break;
+                            case 2:
+                                if (largeMonster2 != 0)
+                                {
+                                    labelAtkValue.Text = m.ReadFloat("mhfo-hd.dll+0E37DD38,1788").ToString();
+                                    labelDefValue.Text = m.ReadFloat("mhfo-hd.dll+0E37DD38,178C").ToString();
+                                    labelPoison.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,177A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,1778").ToString();
+                                    labelSleep.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,175C").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,175A").ToString();
+                                    labelPara.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1776").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,1770").ToString();
+                                    labelBlast.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1C3A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,1C38").ToString();
+                                    labelStun.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1762").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,1964").ToString();
+                                    labelSize.Text = m.Read2Byte("mhfo-hd.dll+2AFA784").ToString() + "%";
+                                }
+                                break;
+                            case 3:
+                                //not imp
+                                if (true)
+                                {
+                                    labelAtkValue.Text = "0";
+                                    labelDefValue.Text = "0";
+                                    labelPoison.Text = "0";
+                                    labelSleep.Text = "0";
+                                    labelPara.Text = "0";
+                                    labelBlast.Text = "0";
+                                    labelStun.Text = "0";
+                                    labelSize.Text = "0%";
+                                }
+                                break;
+                            case 4:
+                                //not imp
+                                if (true)
+                                {
+                                    labelAtkValue.Text = "0";
+                                    labelDefValue.Text = "0";
+                                    labelPoison.Text = "0";
+                                    labelSleep.Text = "0";
+                                    labelPara.Text = "0";
+                                    labelBlast.Text = "0";
+                                    labelStun.Text = "0";
+                                    labelSize.Text = "0%";
+                                }
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (selectedMonsterNo)
+                        {
+                            case 1:
+                                if (largeMonster1 != 0)
+                                {
+                                    labelAtkValue.Text = m.ReadFloat("mhfo-hd.dll+E37DF18,898").ToString();
+                                    labelDefValue.Text = m.ReadFloat("mhfo-hd.dll+E37DF18,89C").ToString();
+                                    labelPoison.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,88A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+E37DF18,888").ToString();
+                                    labelSleep.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,86C").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+E37DF18,86A").ToString();
+                                    labelPara.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,886").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+E37DF18,880").ToString();
+                                    labelBlast.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,D4A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+E37DF18,D48").ToString();
+                                    labelStun.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,872").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+E37DF18,A74").ToString();
+                                    //labelSize.Text = m.Read2Byte("mhfo-hd.dll+2AFA784").ToString() + "%";
+                                }
+                                break;
+                            case 2:
+                                if (largeMonster2 != 0)
+                                {
+                                    labelAtkValue.Text = m.ReadFloat("mhfo-hd.dll+E37DF18,1788").ToString();
+                                    labelDefValue.Text = m.ReadFloat("mhfo-hd.dll+E37DF18,178C").ToString();
+                                    labelPoison.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,177A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+E37DF18,1778").ToString();
+                                    labelSleep.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,175C").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+E37DF18,175A").ToString();
+                                    labelPara.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1776").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+E37DF18,1770").ToString();
+                                    labelBlast.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1C3A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+E37DF18,1C38").ToString();
+                                    labelStun.Text = m.Read2Byte("mhfo-hd.dll+E37DF18,1762").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+E37DF18,1964").ToString();
+                                    //labelSize.Text = m.Read2Byte("mhfo-hd.dll+2AFA784").ToString() + "%";
+                                }
+                                break;
+                            case 3:
+                                //not imp
+                                if (true)
+                                {
+                                    labelAtkValue.Text = "0";
+                                    labelDefValue.Text = "0";
+                                    labelPoison.Text = "0";
+                                    labelSleep.Text = "0";
+                                    labelPara.Text = "0";
+                                    labelBlast.Text = "0";
+                                    labelStun.Text = "0";
+                                    labelSize.Text = "0%";
+                                }
+                                break;
+                            case 4:
+                                //not imp
+                                if (true)
+                                {
+                                    labelAtkValue.Text = "0";
+                                    labelDefValue.Text = "0";
+                                    labelPoison.Text = "0";
+                                    labelSleep.Text = "0";
+                                    labelPara.Text = "0";
+                                    labelBlast.Text = "0";
+                                    labelStun.Text = "0";
+                                    labelSize.Text = "0%";
+                                }
+                                break;
+                        }
+                    }
+
+                }
+                else
+                {
+                    panelMonsInfo.Visible = false;
+                }
+
+                if (showDamage == 0)
+                {
+                    int damage = 0;
+                    if (hitCounts == 0)
+                    {
+                        curNum = 0;
+                        prevNum = 0;
+                        isFirstAttack = true;
+                    }
+                    else
+                    {
+                        damage = m.Read2Byte("mhfo-hd.dll+E8DCF18");
+                    }
+
+                    if (prevNum != damage)
+                    {
+                        curNum = damage - prevNum;
+                        if (isFirstAttack)
+                        {
+                            isFirstAttack = false;
+                            CreateLabel(damage);
+                        }
+                        else if (curNum < 0)
+                        {
+                            curNum = 1000 + curNum;
+                            CreateLabel(curNum);
+                        }
+                        else
+                        {
+                            if (curNum != damage)
+                            {
+                                CreateLabel(curNum);
+                            }
+                        }
+                    }
+                    prevNum = damage;
+                }
+            }
+            else
+            {
+                if (showPlayerInfo == 0)
+                {
+                    labelHitCountTitle.Visible = true;
+                    labelTime1.Visible = true;
+                    labelPlayerAtk.Visible = true;
+                    labelHitCountsValue.Visible = true;
+                    labelTimeValue1.Visible = true;
+                    label21.Visible = true;
+
+                    //HitCounts
+                    hitCounts = m.Read2Byte("mhfo.dll+5CA3430");
+                    labelHitCountsValue.Text = hitCounts.ToString();
+
+                    //Time
+                    int timeDef;
+                    int time;
+                    timeDef = m.ReadInt("mhfo.dll+1B97780");
+                    time = m.ReadInt("mhfo.dll+5BC6540");
+                    switch (timetype)
+                    {
+                        case 0:
+                            labelTime1.Text = "Remaining Time:";
+                            switch (timeformat)
+                            {
+                                case 0:
+                                    int seconds = (time / 30) % 60;
+                                    int minutes = (time / 30) / 60;
+                                    string time1 = minutes + ":" + seconds;
+                                    labelTimeValue1.Text = time1;
+                                    break;
+
+                                case 1:
+                                    labelTimeValue1.Text = (time / 30).ToString();
+                                    break;
+
+                                case 2:
+                                    labelTimeValue1.Text = time.ToString();
+                                    break;
+                            }
+                            break;
+
+                        case 1:
+                            labelTime1.Text = "Elapsed Time";
+                            switch (timeformat)
+                            {
+                                case 0:
+                                    int timeEla = timeDef - time;
+                                    int seconds1 = (timeEla / 30) % 60;
+                                    int minutes1 = (timeEla / 30) / 60;
+                                    string time2 = minutes1 + ":" + seconds1;
+                                    labelTimeValue1.Text = time2;
+                                    break;
+
+                                case 1:
+                                    labelTimeValue1.Text = ((timeDef - time) / 30).ToString();
+                                    break;
+
+                                case 2:
+                                    labelTimeValue1.Text = (timeDef - time).ToString();
+                                    break;
+                            }
+                            break;
+                    }
+
+                    //PlayerAtk
+                    int raw;
+                    int wepType;
+                    raw = m.Read2Byte("mhfo.dll+503433A");
+                    wepType = m.ReadByte("mhfo.dll+60FFCC6");
+                    float mul = 0f;
+                    switch (wepType)
+                    {
+                        case 0:
+                        case 1:
+                            mul = 1.4f;
+                            break;
+                        case 2:
+                        case 3:
+                            mul = 4.8f;
+                            break;
+                        case 4:
+                        case 5:
+                            mul = 5.2f;
+                            break;
+                        case 6:
+                        case 7:
+                            mul = 2.3f;
+                            break;
+                        case 8:
+                        case 9:
+                        case 10:
+                        case 22:
+                            mul = 1.2f;
+                            break;
+                        case 34:
+                        case 36:
+                            mul = 5.4f;
+                            break;
+                        case 35:
+                            mul = 1.8f;
+                            break;
+                        default:
+                            mul = 1f;
+                            break;
+                    }
+
+                    if (atkFormat == 0)
+                    {
+                        label21.Visible = true;
+                        labelPlayerAtk.Visible = true;
+                        labelPlayerAtk.Text = Math.Floor((raw * mul)).ToString();
+                    }
+                    else if (atkFormat == 1)
+                    {
+                        label21.Visible = true;
+                        labelPlayerAtk.Visible = true;
+                        labelPlayerAtk.Text = raw.ToString();
+                    }
+                    else
+                    {
+                        label21.Visible = false;
+                        labelPlayerAtk.Visible = false;
+                    }
+
+                }
+                else
+                {
+                    labelHitCountTitle.Visible = false;
+                    labelTime1.Visible = false;
+                    labelPlayerAtk.Visible = false;
+                    labelHitCountsValue.Visible = false;
+                    labelTimeValue1.Visible = false;
+                    label21.Visible = false;
+                }
+
+                if (m.ReadByte("mhfo.dll+509C8B0") == 0)
+                {
+                    //normal quest
+                    largeMonster1 = m.ReadByte("mhfo.dll+1B97794");
+                    largeMonster2 = m.ReadByte("mhfo.dll+1B9779C");
+                    largeMonster3 = m.ReadByte("mhfo.dll+1B977A4");
+                    largeMonster4 = m.ReadByte("mhfo.dll+1B977AC");
+                    isRoad = false;
+                }
+                else
+                {
+                    //road in ready
+                    //panelMonsInfo.Visible = false;      //temp disabled
+                    //panelBodyParts.Visible = false;     //temp disabled
+                    largeMonster1 = m.ReadByte("mhfo.dll+509C8B8");
+                    largeMonster2 = m.ReadByte("mhfo.dll+509C8D8");
+                    largeMonster3 = 0;
+                    largeMonster4 = 0;
+                    isRoad = true;
                 }
 
 
@@ -657,31 +1164,31 @@ namespace mhf_displayer
                         case 1:
                             if (largeMonster1 != 0)
                             {
-                                labelBP1.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,348").ToString();
-                                labelBP2.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,350").ToString();
-                                labelBP3.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,358").ToString();
-                                labelBP4.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,360").ToString();
-                                labelBP5.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,368").ToString();
-                                labelBP6.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,370").ToString();
-                                labelBP7.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,378").ToString();
-                                labelBP8.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,380").ToString();
-                                labelBP9.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,388").ToString();
-                                labelBP10.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,390").ToString();
+                                labelBP1.Text = m.Read2Byte("mhfo.dll+60A3E58,348").ToString();
+                                labelBP2.Text = m.Read2Byte("mhfo.dll+60A3E58,350").ToString();
+                                labelBP3.Text = m.Read2Byte("mhfo.dll+60A3E58,358").ToString();
+                                labelBP4.Text = m.Read2Byte("mhfo.dll+60A3E58,360").ToString();
+                                labelBP5.Text = m.Read2Byte("mhfo.dll+60A3E58,368").ToString();
+                                labelBP6.Text = m.Read2Byte("mhfo.dll+60A3E58,370").ToString();
+                                labelBP7.Text = m.Read2Byte("mhfo.dll+60A3E58,378").ToString();
+                                labelBP8.Text = m.Read2Byte("mhfo.dll+60A3E58,380").ToString();
+                                labelBP9.Text = m.Read2Byte("mhfo.dll+60A3E58,388").ToString();
+                                labelBP10.Text = m.Read2Byte("mhfo.dll+60A3E58,390").ToString();
                             }
                             break;
                         case 2:
                             if (largeMonster2 != 0)
                             {
-                                labelBP1.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1238").ToString();
-                                labelBP2.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1240").ToString();
-                                labelBP3.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1248").ToString();
-                                labelBP4.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1250").ToString();
-                                labelBP5.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1258").ToString();
-                                labelBP6.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1260").ToString();
-                                labelBP7.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1268").ToString();
-                                labelBP8.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1270").ToString();
-                                labelBP9.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1278").ToString();
-                                labelBP10.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1280").ToString();
+                                labelBP1.Text = m.Read2Byte("mhfo.dll+60A3E58,1238").ToString();
+                                labelBP2.Text = m.Read2Byte("mhfo.dll+60A3E58,1240").ToString();
+                                labelBP3.Text = m.Read2Byte("mhfo.dll+60A3E58,1248").ToString();
+                                labelBP4.Text = m.Read2Byte("mhfo.dll+60A3E58,1250").ToString();
+                                labelBP5.Text = m.Read2Byte("mhfo.dll+60A3E58,1258").ToString();
+                                labelBP6.Text = m.Read2Byte("mhfo.dll+60A3E58,1260").ToString();
+                                labelBP7.Text = m.Read2Byte("mhfo.dll+60A3E58,1268").ToString();
+                                labelBP8.Text = m.Read2Byte("mhfo.dll+60A3E58,1270").ToString();
+                                labelBP9.Text = m.Read2Byte("mhfo.dll+60A3E58,1278").ToString();
+                                labelBP10.Text = m.Read2Byte("mhfo.dll+60A3E58,1280").ToString();
                             }
                             break;
                         case 3:
@@ -700,7 +1207,7 @@ namespace mhf_displayer
                         case 4:
                             //not impletemnted
                             if (true)
-                            labelBP1.Text = "0";
+                                labelBP1.Text = "0";
                             labelBP2.Text = "0";
                             labelBP3.Text = "0";
                             labelBP4.Text = "0";
@@ -729,7 +1236,7 @@ namespace mhf_displayer
                         List.MonsterID.TryGetValue(largeMonster1, out string monsterName1);
                         if (selectedMonsterNo == 1)
                         {
-                            monsterName1 = "Åö" + monsterName1;
+                            monsterName1 = "‚òÖ" + monsterName1;
                         }
                         labelMonN1.Text = monsterName1 + ":";
                         monsterHPValue = m.Read2Byte("0043C600");
@@ -748,7 +1255,7 @@ namespace mhf_displayer
                         List.MonsterID.TryGetValue(largeMonster2, out string monsterName2);
                         if (selectedMonsterNo == 2)
                         {
-                            monsterName2 = "Åö" + monsterName2;
+                            monsterName2 = "‚òÖ" + monsterName2;
                         }
                         labelMonN2.Text = monsterName2 + ":";
                         monsterHPValue = m.Read2Byte("0043C604");
@@ -767,7 +1274,7 @@ namespace mhf_displayer
                         List.MonsterID.TryGetValue(largeMonster3, out string monsterName3);
                         if (selectedMonsterNo == 3)
                         {
-                            monsterName3 = "Åö" + monsterName3;
+                            monsterName3 = "‚òÖ" + monsterName3;
                         }
                         labelMonN3.Text = monsterName3 + ":";
                         monsterHPValue = m.Read2Byte("0043C608");
@@ -786,7 +1293,7 @@ namespace mhf_displayer
                         List.MonsterID.TryGetValue(largeMonster4, out string monsterName4);
                         if (selectedMonsterNo == 4)
                         {
-                            monsterName4 = "Åö" + monsterName4;
+                            monsterName4 = "‚òÖ" + monsterName4;
                         }
                         labelMonN4.Text = monsterName4 + ":";
                         monsterHPValue = m.Read2Byte("0043C60C");
@@ -798,123 +1305,39 @@ namespace mhf_displayer
                         labelMonHP4.Visible = false;
                     }
                 }
-            }
-            else
-            {
-                largeMonster1 = m.ReadByte("mhfo.dll+1B97794");
-                largeMonster2 = m.ReadByte("mhfo.dll+1B9779C");
-                largeMonster3 = m.ReadByte("mhfo.dll+1B977A4");
-                largeMonster4 = m.ReadByte("mhfo.dll+1B977AC");
-
-                if (ShowBP == 0)
-                {
-                    //show
-                    panelBodyParts.Visible = false;
-                }
                 else
                 {
-                    panelBodyParts.Visible = false;
+                    labelMonN1.Visible = false;
                 }
 
-                if (showHP == 0)
-                {
-                    int monsterHPValue;
-
-                    if (largeMonster1 != 0)
-                    {
-                        labelMonN1.Visible = true;
-                        labelMonHP1.Visible = true;
-                        List.MonsterID.TryGetValue(largeMonster1, out string monsterName1);
-                        labelMonN1.Text = monsterName1 + ":";
-                        monsterHPValue = m.Read2Byte("0043C600");
-                        labelMonHP1.Text = monsterHPValue.ToString();
-
-                    }
-                    else
-                    {
-                        labelMonN1.Visible = false;
-                        labelMonHP1.Visible = false;
-                    }
-
-                    if (largeMonster2 != 0)
-                    {
-                        labelMonN2.Visible = true;
-                        labelMonHP2.Visible = true;
-                        List.MonsterID.TryGetValue(largeMonster2, out string monsterName2);
-                        labelMonN2.Text = monsterName2 + ":";
-                        monsterHPValue = m.Read2Byte("0043C604");
-                        labelMonHP2.Text = monsterHPValue.ToString();
-
-                    }
-                    else
-                    {
-                        labelMonN2.Visible = false;
-                        labelMonHP2.Visible = false;
-                    }
-
-                    if (largeMonster3 != 0)
-                    {
-                        labelMonN3.Visible = true;
-                        labelMonHP3.Visible = true;
-                        List.MonsterID.TryGetValue(largeMonster3, out string monsterName3);
-                        labelMonN3.Text = monsterName3 + ":";
-                        monsterHPValue = m.Read2Byte("0043C608");
-                        labelMonHP3.Text = monsterHPValue.ToString();
-                    }
-                    else
-                    {
-                        labelMonN3.Visible = false;
-                        labelMonHP3.Visible = false;
-                    }
-
-                    if (largeMonster4 != 0)
-                    {
-                        labelMonN4.Visible = true;
-                        labelMonHP4.Visible = true;
-                        List.MonsterID.TryGetValue(largeMonster4, out string monsterName4);
-                        labelMonN4.Text = monsterName4 + ":";
-                        monsterHPValue = m.Read2Byte("0043C60C");
-                        labelMonHP4.Text = monsterHPValue.ToString();
-                    }
-                    else
-                    {
-                        labelMonN4.Visible = false;
-                        labelMonHP4.Visible = false;
-                    }
-                }
-
-            }
-
-            if (showMonsterInfo == 0)
-            {
-                if (isHGE)
+                if (showMonsterInfo == 0)
                 {
                     switch (selectedMonsterNo)
                     {
                         case 1:
                             if (largeMonster1 != 0)
                             {
-                                labelAtkValue.Text = m.ReadFloat("mhfo-hd.dll+0E37DD38,898").ToString();
-                                labelDefValue.Text = m.ReadFloat("mhfo-hd.dll+0E37DD38,89C").ToString();
-                                labelPoison.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,88A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,888").ToString();
-                                labelSleep.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,86C").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,86A").ToString();
-                                labelPara.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,886").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,880").ToString();
-                                labelBlast.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,D4A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,D48").ToString();
-                                labelStun.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,872").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,A74").ToString();
-                                labelSize.Text = m.Read2Byte("mhfo-hd.dll+2AFA784").ToString() + "%";
+                                labelAtkValue.Text = m.ReadFloat("mhfo.dll+60A3E58,898").ToString();
+                                labelDefValue.Text = m.ReadFloat("mhfo.dll+60A3E58,89C").ToString();
+                                labelPoison.Text = m.Read2Byte("mhfo.dll+60A3E58,88A").ToString() + "/" + m.Read2Byte("mhfo.dll+60A3E58,888").ToString();
+                                labelSleep.Text = m.Read2Byte("mhfo.dll+60A3E58,86C").ToString() + "/" + m.Read2Byte("mhfo.dll+60A3E58,86A").ToString();
+                                labelPara.Text = m.Read2Byte("mhfo.dll+60A3E58,886").ToString() + "/" + m.Read2Byte("mhfo.dll+60A3E58,880").ToString();
+                                labelBlast.Text = m.Read2Byte("mhfo.dll+60A3E58,D4A").ToString() + "/" + m.Read2Byte("mhfo.dll+60A3E58,D48").ToString();
+                                labelStun.Text = m.Read2Byte("mhfo.dll+60A3E58,872").ToString() + "/" + m.Read2Byte("mhfo.dll+60A3E58,A74").ToString();
+                                //labelSize.Text = m.Read2Byte("mhfo-hd.dll+2AFA784").ToString() + "%";
                             }
                             break;
                         case 2:
                             if (largeMonster2 != 0)
                             {
-                                labelAtkValue.Text = m.ReadFloat("mhfo-hd.dll+0E37DD38,1788").ToString();
-                                labelDefValue.Text = m.ReadFloat("mhfo-hd.dll+0E37DD38,178C").ToString();
-                                labelPoison.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,177A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,1778").ToString();
-                                labelSleep.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,175C").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,175A").ToString();
-                                labelPara.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1776").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,1770").ToString();
-                                labelBlast.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1C3A").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,1C38").ToString();
-                                labelStun.Text = m.Read2Byte("mhfo-hd.dll+0E37DD38,1762").ToString() + "/" + m.Read2Byte("mhfo-hd.dll+0E37DD38,1964").ToString();
-                                labelSize.Text = m.Read2Byte("mhfo-hd.dll+2AFA784").ToString() + "%";
+                                labelAtkValue.Text = m.ReadFloat("mhfo.dll+60A3E58,1788").ToString();
+                                labelDefValue.Text = m.ReadFloat("mhfo.dll+60A3E58,178C").ToString();
+                                labelPoison.Text = m.Read2Byte("mhfo.dll+60A3E58,177A").ToString() + "/" + m.Read2Byte("mhfo.dll+60A3E58,1778").ToString();
+                                labelSleep.Text = m.Read2Byte("mhfo.dll+60A3E58,175C").ToString() + "/" + m.Read2Byte("mhfo.dll+60A3E58,175A").ToString();
+                                labelPara.Text = m.Read2Byte("mhfo.dll+60A3E58,1776").ToString() + "/" + m.Read2Byte("mhfo.dll+60A3E58,1770").ToString();
+                                labelBlast.Text = m.Read2Byte("mhfo.dll+60A3E58,1C3A").ToString() + "/" + m.Read2Byte("mhfo.dll+60A3E58,1C38").ToString();
+                                labelStun.Text = m.Read2Byte("mhfo.dll+60A3E58,1762").ToString() + "/" + m.Read2Byte("mhfo.dll+60A3E58,1964").ToString();
+                                //labelSize.Text = m.Read2Byte("mhfo-hd.dll+2AFA784").ToString() + "%";
                             }
                             break;
                         case 3:
@@ -947,97 +1370,49 @@ namespace mhf_displayer
                             break;
                     }
 
-
-                    //float atk = m.ReadFloat("mhfo-hd.dll+0E37DD38,898");
-                    //float def = m.ReadFloat("mhfo-hd.dll+0E37DD38,89C");
-                    //labelAtkValue.Text = atk.ToString();
-                    //labelDefValue.Text = def.ToString();
-                    //int poison = m.Read2Byte("mhfo-hd.dll+0E37DD38,88A");
-                    //int poisonMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,888");
-                    //int sleep = m.Read2Byte("mhfo-hd.dll+0E37DD38,86C");
-                    //int sleepMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,86A");
-                    //int para = m.Read2Byte("mhfo-hd.dll+0E37DD38,886");
-                    //int paraMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,880");
-                    //int blast = m.Read2Byte("mhfo-hd.dll+0E37DD38,D4A");
-                    //int blastMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,D48");
-                    //int stun = m.Read2Byte("mhfo-hd.dll+0E37DD38,872");
-                    //int stunMax = m.Read2Byte("mhfo-hd.dll+0E37DD38,A74");
-                    //labelPoison.Text = poison.ToString() + "/" + poisonMax.ToString();
-                    //labelSleep.Text = sleep.ToString() + "/" + sleepMax.ToString();
-                    //labelPara.Text = para.ToString() + "/" + paraMax.ToString();
-                    //labelBlast.Text = blast.ToString() + "/" + blastMax.ToString();
-                    //labelStun.Text = stun.ToString() + "/" + stunMax.ToString();
-                    //labelSize.Text = m.Read2Byte("mhfo-hd.dll+2AFA784").ToString() + "%";
                 }
                 else
                 {
                     panelMonsInfo.Visible = false;
-                    //float atk = m.ReadFloat("mhfo.dll+0E37DD38,898");
-                    //float def = m.ReadFloat("mhfo.dll+0E37DD38,89C");
-                    //labelAtkValue.Text = atk.ToString();
-                    //labelDefValue.Text = def.ToString();
-                    //int poison = m.Read2Byte("mhfo.dll+0E37DD38,88A");
-                    //int poisonMax = m.Read2Byte("mhfo.dll+0E37DD38,888");
-                    //int sleep = m.Read2Byte("mhfo.dll+0E37DD38,86C");
-                    //int sleepMax = m.Read2Byte("mhfo.dll+0E37DD38,86A");
-                    //int para = m.Read2Byte("mhfo.dll+0E37DD38,886");
-                    //int paraMax = m.Read2Byte("mhfo.dll+0E37DD38,880");
-                    //int blast = m.Read2Byte("mhfo.dll+0E37DD38,D4A");
-                    //int blastMax = m.Read2Byte("mhfo.dll+0E37DD38,D48");
-                    //int stun = m.Read2Byte("mhfo.dll+0E37DD38,872");
-                    //int stunMax = m.Read2Byte("mhfo.dll+0E37DD38,A74");
-                    //labelPoison.Text = poison.ToString() + "/" + poisonMax.ToString();
-                    //labelSleep.Text = sleep.ToString() + "/" + sleepMax.ToString();
-                    //labelPara.Text = para.ToString() + "/" + paraMax.ToString();
-                    //labelBlast.Text = blast.ToString() + "/" + blastMax.ToString();
-                    //labelStun.Text = stun.ToString() + "/" + stunMax.ToString();
                 }
 
-            }
-
-            if (showDamage == 0)
-            {
-                int damage = 0;
-                if (hitCounts == 0)
+                if (showDamage == 0)
                 {
-                    curNum = 0;
-                    prevNum = 0;
-                    isFirstAttack = true;
-                }
-                else
-                {
-                    if (isHGE)
+                    int damage = 0;
+                    if (hitCounts == 0)
                     {
-                        damage = m.Read2Byte("mhfo-hd.dll+E8DCF18");
+                        curNum = 0;
+                        prevNum = 0;
+                        isFirstAttack = true;
                     }
                     else
                     {
                         damage = m.Read2Byte("mhfo.dll+5CA3430");
                     }
-                }
 
-                if (prevNum != damage)
-                {
-                    curNum = damage - prevNum;
-                    if (isFirstAttack)
+                    if (prevNum != damage)
                     {
-                        isFirstAttack = false;
-                        CreateLabel(damage);
-                    }
-                    else if (curNum < 0)
-                    {
-                        curNum = 1000 + curNum;
-                        CreateLabel(curNum);
-                    }
-                    else
-                    {
-                        if (curNum != damage)
+                        curNum = damage - prevNum;
+                        if (isFirstAttack)
                         {
+                            isFirstAttack = false;
+                            CreateLabel(damage);
+                        }
+                        else if (curNum < 0)
+                        {
+                            curNum = 1000 + curNum;
                             CreateLabel(curNum);
                         }
+                        else
+                        {
+                            if (curNum != damage)
+                            {
+                                CreateLabel(curNum);
+                            }
+                        }
                     }
+                    prevNum = damage;
                 }
-                prevNum = damage;
             }
         }
 
@@ -1068,7 +1443,7 @@ namespace mhf_displayer
             lineChanger("x=" + numericUpDown1.Value.ToString(), cfgFileName, 2);
             lineChanger("y=" + numericUpDown2.Value.ToString(), cfgFileName, 3);
             lineChanger("type=" + comboBox4.SelectedIndex.ToString(), cfgFileName, 4);
-            lineChanger("format=" + comboBox6.SelectedIndex.ToString(), cfgFileName,5);
+            lineChanger("format=" + comboBox6.SelectedIndex.ToString(), cfgFileName, 5);
             lineChanger("atk=" + comboBox5.SelectedIndex.ToString(), cfgFileName, 6);
 
             lineChanger("show=" + comboBox2.SelectedIndex.ToString(), cfgFileName, 8);

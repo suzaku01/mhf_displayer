@@ -11,10 +11,14 @@ Drop `mhf_displayer.cfg` to the same place where exe created if you build it you
 After the game has started, run `mhf_displayer.exe`.  
 It's recommended to start displayer while you are in lobby, otherwise it will crash.  
 Windows Defender may scan the app only once at the beginning of launch, this is because displayer accesses game memory.  
-
 `mhf_displayer.cfg` file is used to store your config value.  
 
-To toggle monster, press `LeftAlt`+`F12`.
+To access config menu right click somewhere on displays.  
+![image](https://user-images.githubusercontent.com/89909040/168278420-a19a9e88-a5c0-4ffb-a93e-81c03ce59a8b.png)  
+
+While you are in config menu, you can move displays(player panel, monster panel etc.)　by drag and drop
+
+To toggle monster, press `LeftAlt`+`F12`. (v1.6: doesn't work (?))  
 
 # Project status
 
@@ -111,7 +115,7 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - `mhf_displayer.cfg` file is updated.
 - Text font, size and color are now changeable.
 - Added right click menu to displayer for opening config menu and closing the app.
-- While you are in config menu, you can move displays(player panel, monster panel etc.)　by drag and drop
+- While you are in config menu, you can move displays(player panel, monster panel etc.)　by drag and drop.
 - Changed config menu UI.
 - Deleted `C` and `X` button. 
 

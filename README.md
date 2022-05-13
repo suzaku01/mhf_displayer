@@ -115,7 +115,7 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - `mhf_displayer.cfg` file is updated.
 - Text font, size and color are now changeable.
 - Added right click menu to displayer for opening config menu and closing the app.
-- While you are in config menu, you can move displays(player panel, monster panel etc.)　by drag and drop.
+- While you are in config menu, you can move displays(player panel, monster panel etc.) by drag and drop.
 - Changed config menu UI.
 - Deleted `C` and `X` button. 
 

@@ -35,7 +35,7 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - Does not work correctly on Great Slaying and Caravan quest.
 - Does not show resistance and status values for 3rd and 4th or more large monster(But are there quests where they exist?).
 - Cannot get True value of player attack correctly.  
-- Somehow changing monsetr function doesn't work(v1.6)
+- Somehow changing monster function doesn't work(v1.6)
 
 ## Todo
 - Support for various types of display resolutions.

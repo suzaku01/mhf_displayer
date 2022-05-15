@@ -107,9 +107,9 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - Fixed a problem in which damage notations were displayed even if they were turned off.
 
 ## v1.5
-- (HGE) Now works on Hunter's road quest.  
+- ~~(HGE) Now works on Hunter's road quest.~~
 - (nonHGE) Now it shows monster's resistance and status values.
-- (nonHGE) Now works on Hunter's road quest.  
+- ~~(nonHGE) Now works on Hunter's road quest.  ~~
 
 ## v1.6
 - `mhf_displayer.cfg` file is updated.

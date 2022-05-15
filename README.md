@@ -36,6 +36,7 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - Does not show resistance and status values for 3rd and 4th or more large monster(But are there quests where they exist?).
 - Cannot get True value of player attack correctly.  
 - Somehow changing monster function doesn't work(v1.6)
+- Does not work on Hunter's Road quest correctly.
 
 ## Todo
 - Support for various types of display resolutions.
@@ -109,7 +110,7 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 ## v1.5
 - ~~(HGE) Now works on Hunter's road quest.~~
 - (nonHGE) Now it shows monster's resistance and status values.
-- ~~(nonHGE) Now works on Hunter's road quest.  ~~
+- ~~(nonHGE) Now works on Hunter's road quest.~~
 
 ## v1.6
 - `mhf_displayer.cfg` file is updated.

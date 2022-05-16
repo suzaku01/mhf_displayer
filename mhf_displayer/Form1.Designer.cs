@@ -64,6 +64,9 @@
             this.AtkDefTitle = new System.Windows.Forms.Label();
             this.labelAtkValue = new System.Windows.Forms.Label();
             this.panelSample = new System.Windows.Forms.Panel();
+            this.labelSampleDmg3 = new System.Windows.Forms.Label();
+            this.labelSampleDmg2 = new System.Windows.Forms.Label();
+            this.labelSampleDmg1 = new System.Windows.Forms.Label();
             this.panelBodyParts = new System.Windows.Forms.Panel();
             this.labelBP10 = new System.Windows.Forms.Label();
             this.labelBP9 = new System.Windows.Forms.Label();
@@ -78,9 +81,6 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.labelSampleDmg1 = new System.Windows.Forms.Label();
-            this.labelSampleDmg2 = new System.Windows.Forms.Label();
-            this.labelSampleDmg3 = new System.Windows.Forms.Label();
             this.panelPlayerInfo.SuspendLayout();
             this.panelHP.SuspendLayout();
             this.panelMonsInfo.SuspendLayout();
@@ -549,6 +549,36 @@
             this.panelSample.Size = new System.Drawing.Size(286, 135);
             this.panelSample.TabIndex = 13;
             // 
+            // labelSampleDmg3
+            // 
+            this.labelSampleDmg3.AutoSize = true;
+            this.labelSampleDmg3.ForeColor = System.Drawing.Color.Black;
+            this.labelSampleDmg3.Location = new System.Drawing.Point(232, 95);
+            this.labelSampleDmg3.Name = "labelSampleDmg3";
+            this.labelSampleDmg3.Size = new System.Drawing.Size(25, 15);
+            this.labelSampleDmg3.TabIndex = 2;
+            this.labelSampleDmg3.Text = "110";
+            // 
+            // labelSampleDmg2
+            // 
+            this.labelSampleDmg2.AutoSize = true;
+            this.labelSampleDmg2.ForeColor = System.Drawing.Color.Black;
+            this.labelSampleDmg2.Location = new System.Drawing.Point(135, 46);
+            this.labelSampleDmg2.Name = "labelSampleDmg2";
+            this.labelSampleDmg2.Size = new System.Drawing.Size(25, 15);
+            this.labelSampleDmg2.TabIndex = 1;
+            this.labelSampleDmg2.Text = "110";
+            // 
+            // labelSampleDmg1
+            // 
+            this.labelSampleDmg1.AutoSize = true;
+            this.labelSampleDmg1.ForeColor = System.Drawing.Color.Black;
+            this.labelSampleDmg1.Location = new System.Drawing.Point(50, 32);
+            this.labelSampleDmg1.Name = "labelSampleDmg1";
+            this.labelSampleDmg1.Size = new System.Drawing.Size(25, 15);
+            this.labelSampleDmg1.TabIndex = 0;
+            this.labelSampleDmg1.Text = "110";
+            // 
             // panelBodyParts
             // 
             this.panelBodyParts.BackColor = System.Drawing.SystemColors.ButtonShadow;
@@ -718,36 +748,6 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // labelSampleDmg1
-            // 
-            this.labelSampleDmg1.AutoSize = true;
-            this.labelSampleDmg1.ForeColor = System.Drawing.Color.Black;
-            this.labelSampleDmg1.Location = new System.Drawing.Point(50, 32);
-            this.labelSampleDmg1.Name = "labelSampleDmg1";
-            this.labelSampleDmg1.Size = new System.Drawing.Size(25, 15);
-            this.labelSampleDmg1.TabIndex = 0;
-            this.labelSampleDmg1.Text = "110";
-            // 
-            // labelSampleDmg2
-            // 
-            this.labelSampleDmg2.AutoSize = true;
-            this.labelSampleDmg2.ForeColor = System.Drawing.Color.Black;
-            this.labelSampleDmg2.Location = new System.Drawing.Point(135, 46);
-            this.labelSampleDmg2.Name = "labelSampleDmg2";
-            this.labelSampleDmg2.Size = new System.Drawing.Size(25, 15);
-            this.labelSampleDmg2.TabIndex = 1;
-            this.labelSampleDmg2.Text = "110";
-            // 
-            // labelSampleDmg3
-            // 
-            this.labelSampleDmg3.AutoSize = true;
-            this.labelSampleDmg3.ForeColor = System.Drawing.Color.Black;
-            this.labelSampleDmg3.Location = new System.Drawing.Point(232, 95);
-            this.labelSampleDmg3.Name = "labelSampleDmg3";
-            this.labelSampleDmg3.Size = new System.Drawing.Size(25, 15);
-            this.labelSampleDmg3.TabIndex = 2;
-            this.labelSampleDmg3.Text = "110";
             // 
             // Form1
             // 

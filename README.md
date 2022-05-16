@@ -5,19 +5,20 @@ mhf_displayer is a C# form that shows various useful infomations on display.
 Go release section and download latest version.
 
 # Build
-If you feel you want to build the project youeself, place `mhf_displayer.cfg` to the same place where exe created.
+Drop `mhf_displayer.cfg` to the same place where exe created if you build it yourself.
 
 # Usage
-After game has started, run `mhf_displayer.exe`.  
-It's recommended to start it while you are in lobby, otherwise the game will crash.  
-Windows Defender may try to scan app only once at the beginning of launch, this is because mhf_displayer accesses game memory.  
-
-Press `X` button to shutdown the app.  
-Press `C` button to open configuration menu.
-
+After the game has started, run `mhf_displayer.exe`.  
+It's recommended to start displayer while you are in lobby, otherwise it will crash.  
+Windows Defender may scan the app only once at the beginning of launch, this is because displayer accesses game memory.  
 `mhf_displayer.cfg` file is used to store your config value.  
 
-To toggle monster, press `LeftAlt`+`F12`.
+To access config menu right click somewhere on displays.  
+![image](https://user-images.githubusercontent.com/89909040/168278420-a19a9e88-a5c0-4ffb-a93e-81c03ce59a8b.png)  
+
+While you are in config menu, you can move displays(player panel, monster panel etc.)　by drag and drop
+
+To toggle monster, press `LeftAlt`+`F12`. (v1.6: doesn't work (?))  
 
 # Project status
 
@@ -28,16 +29,18 @@ To toggle monster, press `LeftAlt`+`F12`.
 - Cannot get monster size value. 
 
 ## Known issues
+- If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
+https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - Does not show HP of small monsters.
 - Does not work correctly on Great Slaying and Caravan quest.
 - Does not show resistance and status values for 3rd and 4th or more large monster(But are there quests where they exist?).
 - Cannot get True value of player attack correctly.  
-- If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
-https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+- Somehow changing monster function doesn't work(v1.6)
+- Does not work on Hunter's Road quest correctly.
 
 ## Todo
-- Implementation of text size and font changes.
 - Support for various types of display resolutions.
+- Add Japanese support.
 
 
 # Changelog
@@ -105,6 +108,16 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - Fixed a problem in which damage notations were displayed even if they were turned off.
 
 ## v1.5
-- (HGE) Now works on Hunter's road quest.  
+- ~~(HGE) Now works on Hunter's road quest.~~
 - (nonHGE) Now it shows monster's resistance and status values.
-- (nonHGE) Now works on Hunter's road quest.  
+- ~~(nonHGE) Now works on Hunter's road quest.~~
+
+## v1.6
+- `mhf_displayer.cfg` file is updated.
+- Text font, size and color are now changeable.
+- Added right click menu to displayer for opening config menu and closing the app.
+- While you are in config menu, you can move displays(player panel, monster panel etc.) by drag and drop.
+- Changed config menu UI.
+- Deleted `C` and `X` button. 
+
+

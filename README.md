@@ -120,4 +120,6 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - Changed config menu UI.
 - Deleted `C` and `X` button. 
 
+## v1.6.1
+- Probably working correctly on Hunte's Road both HGE and nonHGE.
 

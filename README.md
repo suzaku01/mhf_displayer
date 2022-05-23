@@ -19,6 +19,7 @@ To access config menu right click somewhere on displays.
 While you are in config menu, you can move displays(player panel, monster panel etc.) by drag and drop.  
 
 ~~To toggle monster, press `LeftAlt`+`F12`. (v1.6: doesn't work (?))~~
+If you lock onto a target, you will see the details of that monster.
 
 # Project status
 
@@ -125,3 +126,4 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 ## v.1.6.2
 - Improved stability.
 - Now shows small monster of HP but it's buggy.
+- Changed the way of selection of large monster. If you lock onto a target, you will see the details of that monster.

@@ -16,7 +16,7 @@ Windows Defender may scan the app only once at the beginning of launch, this is 
 To access config menu right click somewhere on displays.  
 ![image](https://user-images.githubusercontent.com/89909040/168278420-a19a9e88-a5c0-4ffb-a93e-81c03ce59a8b.png)  
 
-While you are in config menu, you can move displays(player panel, monster panel etc.)　by drag and drop.  
+While you are in config menu, you can move displays(player panel, monster panel etc.) by drag and drop.  
 
 ~~To toggle monster, press `LeftAlt`+`F12`. (v1.6: doesn't work (?))~~
 
@@ -35,7 +35,7 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 - Does not show resistance and status values for 3rd and 4th or more large monster(But are there quests where they exist?).
 - Cannot get True value of player attack correctly.  
 - Probably it's buggy in musou quest (as I'm not good at it, it may takes long time to fix it)
-- While it shows small monster of HP, it's bugggy.
+- While it shows small monster of HP, it's buggy.
 
 ## Todo
 - Support for various types of display resolutions.

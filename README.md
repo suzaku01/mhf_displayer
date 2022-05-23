@@ -16,9 +16,9 @@ Windows Defender may scan the app only once at the beginning of launch, this is 
 To access config menu right click somewhere on displays.  
 ![image](https://user-images.githubusercontent.com/89909040/168278420-a19a9e88-a5c0-4ffb-a93e-81c03ce59a8b.png)  
 
-While you are in config menu, you can move displays(player panel, monster panel etc.)　by drag and drop
+While you are in config menu, you can move displays(player panel, monster panel etc.)　by drag and drop.  
 
-To toggle monster, press `LeftAlt`+`F12`. (v1.6: doesn't work (?))  
+~~To toggle monster, press `LeftAlt`+`F12`. (v1.6: doesn't work (?))~~
 
 # Project status
 
@@ -26,17 +26,16 @@ To toggle monster, press `LeftAlt`+`F12`. (v1.6: doesn't work (?))
 -
 
 ## Non High-Grade Edition
-- Cannot get monster size value. 
+- 
 
 ## Known issues
 - If nothing happens after starting mhf_displayer, it may be required to install .Net SDK(x86).  
 https://dotnet.microsoft.com/en-us/download/dotnet/6.0
-- Does not show HP of small monsters.
 - Does not work correctly on Great Slaying and Caravan quest.
 - Does not show resistance and status values for 3rd and 4th or more large monster(But are there quests where they exist?).
 - Cannot get True value of player attack correctly.  
-- Somehow changing monster function doesn't work(v1.6)
-- Does not work on Hunter's Road quest correctly.
+- Probably it's buggy in musou quest (as I'm not good at it, it may takes long time to fix it)
+- While it shows small monster of HP, it's bugggy.
 
 ## Todo
 - Support for various types of display resolutions.
@@ -123,3 +122,6 @@ https://dotnet.microsoft.com/en-us/download/dotnet/6.0
 ## v1.6.1
 - Probably working correctly on Hunte's Road both HGE and nonHGE.
 
+## v.1.6.2
+- Improved stability.
+- Now shows small monster of HP but it's buggy.

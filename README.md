@@ -18,7 +18,7 @@ To access config menu right click somewhere on displays.
 
 While you are in config menu, you can move displays(player panel, monster panel etc.) by drag and drop.  
 
-~~To toggle monster, press `LeftAlt`+`F12`. (v1.6: doesn't work (?))~~
+~~To toggle monster, press `LeftAlt`+`F12`. (v1.6: doesn't work (?))~~  
 If you lock onto a target, you will see the details of that monster.
 
 # Project status
